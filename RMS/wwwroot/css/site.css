@@ -1,0 +1,57 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    margin-bottom: 60px;
+    background: url('../images/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.card {
+    background-color: transparent; /* Transparent background */
+    border: 1px solid #ddd; /* Subtle border for structure */
+    border-radius: 8px; /* Smooth corner rounding */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 15px; /* Optional padding for inner spacing */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add a hover effect */
+}
+
+    .card:hover {
+        transform: scale(1.02); /* Slight zoom on hover */
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    }
+
+
+.carousel-item {
+    height: auto; /* Adjust height dynamically based on content */
+}
+
+.carousel-inner {
+    max-width: 1300px; /* Center align and limit width of the slider */
+    margin: 0 auto;
+}
+
+.bg-light {
+    border-radius: 15px; /* Rounded corners for uniformity */
+}
+
+
+

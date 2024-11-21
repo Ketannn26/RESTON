@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "_Layout"; // Ensure Bootstrap is loaded in your layout
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Dashboard Content -->
+            <div class="text-center p-4 mt-5">
+                <h2 class="mb-4">Welcome, @ViewBag.FullName!</h2>
+                <p>This is your Admin Dashboard.</p>
+            </div>
+
+            <!-- Menu Management Section -->
+            <div class="card bg-light mt-4">
+                <div class="card-header">
+                    <h5>Menu Management</h5>
+                </div>
+                <div class="card-body">
+                    <p>Manage the restaurant's menu items here.</p>
+                    <a class="btn btn-primary" href="/AdminDashboard/MenuList">Go to Menu Management</a>
+                </div>
+            </div>
+
+            <!-- Table Booking Requests Section -->
+            <div class="card bg-light mt-4">
+                <div class="card-header">
+                    <h5>Table Booking Requests</h5>
+                </div>
+                <div class="card-body">
+                    <p>View and manage all table booking requests here.</p>
+                    <a class="btn btn-info" href="/Admin/TableBookingRequests">View Table Requests</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

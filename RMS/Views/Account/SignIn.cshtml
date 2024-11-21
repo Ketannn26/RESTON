@@ -1,0 +1,36 @@
+﻿@model RMS.Models.User
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow-lg p-4 mt-5">
+                <h2 class="text-center mb-4">Sign In</h2>
+
+                <form asp-action="SignIn" method="post">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required />
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required />
+                    </div>
+
+                    <div class="form-group form-check mt-3">
+                        <input type="checkbox" class="form-check-input" id="rememberMe" />
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-block mt-4">Sign In</button>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <p>Don't have an account? <a href="/Account/SignUp">Sign Up</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

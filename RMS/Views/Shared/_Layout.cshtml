@@ -1,0 +1,78 @@
+﻿  @inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RMS</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RMS.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Reston">
+                    <i class="bi bi-shop me-2 text-primary"></i>
+                    <span class="fw-bold fs-4 text-primary">RESTON</span>
+                </a>
+
+                <div class="d-flex justify-content-center">
+                    <a class="navbar-brand" asp-area="" asp-controller="Menu" asp-action="Menu">Menu</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="About" asp-action="About">About</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Contact" asp-action="Contact">Contact</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="BookTable" asp-action="BookTable">Book Table</a>
+                </div>
+                <div>
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") == null)
+                    {
+                        <a class="btn btn-primary ms-auto" asp-area="" asp-controller="Account" asp-action="SignIn">Sign In</a>
+                    }
+                </div>
+
+            </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+               <div class="collapse navbar-collapse" id="navbarNav">
+                 <ul class="navbar-nav ms-auto"></ul>
+
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") == "Admin")
+                        {
+                            <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Account" asp-action="Profile">
+                               <i class="bi bi-person-circle" style="font-size: 1.5rem; margin-right: 8px;"></i>
+                            </a>
+                           
+                        }
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") == "Customer")
+                        {
+
+                        <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Account" asp-action="Profile">
+                            <i class="bi bi-person-circle" style="font-size: 1.5rem; margin-right: 8px;"></i>
+                        </a>
+
+                        }
+               </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-muted footer-light">
+        <div class="text-center">
+           Made with<i class="bi bi-suit-heart-fill"></i>by Sk
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

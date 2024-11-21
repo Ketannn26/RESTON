@@ -1,0 +1,120 @@
+﻿@{
+    ViewData["Title"] = "Home - Reston";
+}
+
+<div class="container mt-5">
+    <!-- Welcome Section -->
+    <div class="text-center">
+        <h1 class="display-4 text-primary">Welcome to Reston!</h1>
+        <p class="lead text-muted">Experience the finest dining with our delicious menu and exceptional service.</p>
+    </div>
+
+    <div class="container mt-5">
+    <div class="row row-cols-1 row-cols-md-1 g-4">
+            <div id="menuCarousel" class="carousel slide mt-4" data-bs-ride="carousel" data-bs-interval="3000">
+                <!-- Indicators -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#menuCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#menuCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#menuCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+
+                <!-- Slides -->
+                <div class="carousel-inner">
+                    <!-- Breakfast Slide -->
+                    <div class="carousel-item active">
+                        <div class="position-relative">
+                            <!-- Image Section -->
+                            <img src="/images/bf.jpg" class="d-block w-100 h-100" alt="Breakfast">
+
+                            <!-- Text Section on top of the image -->
+                            <div class="position-absolute top-50 start-50 translate-middle text-center text-light">
+                                <h2 class="mb-4">Breakfast</h2>
+                                <p class="mb-4">Start your day with our hearty breakfast options, crafted with care.</p>
+                                <a asp-controller="Menu" asp-action="Breakfast" class="btn btn-primary">View Breakfast Menu</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lunch Slide -->
+                    <div class="carousel-item">
+                        <div class="position-relative">
+                            <!-- Image Section -->
+                            <img src="/images/SigDish.jpg" class="d-block w-100 h-100" alt="Lunch">
+
+                            <!-- Text Section on top of the image -->
+                            <div class="position-absolute top-50 start-50 translate-middle text-center text-light">
+                                <h2 class="mb-4">Lunch</h2>
+                                <p class="mb-4">Enjoy a fulfilling lunch with our freshly made dishes.</p>
+                                <a asp-controller="Menu" asp-action="Lunch" class="btn btn-primary">View Lunch Menu</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dinner Slide -->
+                    <div class="carousel-item">
+                        <div class="position-relative">
+                            <!-- Image Section -->
+                            <img src="/images/bg.jpg" class="d-block w-100 h-100" alt="Dinner">
+
+                            <!-- Text Section on top of the image -->
+                            <div class="position-absolute top-50 start-50 translate-middle text-center text-light">
+                                <h2 class="mb-4">Dinner</h2>
+                                <p class="mb-4">End your day with a delightful dinner from our exquisite menu.</p>
+                                <a asp-controller="Menu" asp-action="Dinner" class="btn btn-primary">View Dinner Menu</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#menuCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#menuCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+
+
+        <!-- About Card -->
+        <div class="col">
+                <div class="card text-center shadow-sm bg-light">
+                <img src="/images/about.jpg" class="card-img-top rounded-circle mx-auto mt-4" alt="About" style="width: 150px; height: 150px;">
+                <div class="card-body">
+                    <h5 class="card-title">About Us</h5>
+                    <p class="card-text">Learn more about our story and commitment to quality dining.</p>
+                    <a asp-controller="About" asp-action="About" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book Table Card -->
+        <div class="col">
+                <div class="card text-center shadow-sm bg-light">
+                <img src="/images/book-table.jpg" class="card-img-top rounded-circle mx-auto mt-4" alt="Book Table" style="width: 150px; height: 150px;">
+                <div class="card-body">
+                    <h5 class="card-title">Book a Table</h5>
+                    <p class="card-text">Reserve your table now for a seamless dining experience.</p>
+                    <a asp-controller="Account" asp-action="SignIn" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+            <!-- Contact Section -->
+            <section id="contact" class="py-4">
+                <h3 class="text-center mb-3">Contact Us</h3>
+                <p class="text-center">We’d love to hear from you!</p>
+                <div class="text-center">
+                    <p><i class="bi bi-geo-alt-fill text-danger"></i> 123 Main Street, Cityville</p>
+                    <p><i class="bi bi-telephone text-warning"></i> Phone: +1 123-456-7890</p>
+                    <p><i class="bi bi-envelope text-primary"></i> Email: reston@ourrestaurant.com</p>
+                    <p><i class="bi bi-clock text-primary"></i> Open: 10:00 AM - 10:00 PM</p>
+                </div>
+            </section>
+    </div>
+</div>
+
+</div>

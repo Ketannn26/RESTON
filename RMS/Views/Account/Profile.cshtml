@@ -1,0 +1,71 @@
+﻿<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="bg-light text-primary p-4 vh-100" style="width: 300px; position: fixed; right: 0; height: auto; overflow-y: auto;">
+        <h4 class="text-center"> <i class="bi bi-person-circle" style="font-size: 1rem; margin-right: 8px;"></i>My Profile</h4>
+        <hr class="bg-light">
+        <ul class="list-unstyled">
+            <li class="mb-3">
+                <strong>Full Name:</strong> <br> @Model.FullName
+            </li>
+            <li class="mb-3">
+                <strong>Email:</strong> <br> @Model.Email
+            </li>
+            <li class="mb-3">
+                <strong>Password:</strong> <br> @Model.Password
+            </li>
+            <li class="mb-3">
+                <strong>Phone Number:</strong> <br> @Model.PhoneNumber
+            </li>
+            <li class="mb-3">
+                <strong>Role:</strong> <br> @Model.Role
+            </li>
+        </ul>
+        <hr class="bg-light">
+        <!-- Button to show main content -->
+        <div class="text-center">
+            <button id="toggleContentButton" class="btn btn-primary w-100 mt-3">Edit Profile</button>
+            <a href="/Account/SignOut" class="btn btn-light text-bg-danger w-100 mt-3">Sign Out</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="flex-grow-1 p-4" style="display: none; margin-left: 175px; max-width: 800px;">
+        <h2 class="text-center">Welcome, @Model.FullName</h2>
+        <p class="text-center text-muted">Here, you can view and update your details.</p>
+
+        <div class="bg-light card shadow">
+            <div class="card-body">
+                <h4 class="card-title">Edit Profile</h4>
+                <form asp-action="UpdateProfile" method="post">
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" id="fullName" name="FullName" class="form-control" value="@Model.FullName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="Email" class="form-control" value="@Model.Email" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">New Password</label>
+                        <input type="password" id="password" name="Password" class="form-control">
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // JavaScript to toggle the main content visibility
+    document.getElementById("toggleContentButton").addEventListener("click", function () {
+        const mainContent = document.getElementById("mainContent");
+        if (mainContent.style.display === "none" || mainContent.style.display === "") {
+            mainContent.style.display = "block"; // Show the content
+        } else {
+            mainContent.style.display = "none"; // Hide the content
+        }
+    });
+</script>

@@ -1,0 +1,29 @@
+﻿@model RMS.Models.Menu
+
+<h2>Edit Menu Item</h2>
+
+<form asp-action="EditMenu" method="post">
+    <input type="hidden" asp-for="MenuItemID" />
+
+    <div class="form-group">
+        <label asp-for="ItemName"></label>
+        <input asp-for="ItemName" class="form-control" />
+        <span asp-validation-for="ItemName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsAvailable"></label>
+        <input asp-for="IsAvailable" type="checkbox" />
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-warning px-4">Update Menu</button>
+        <a asp-action="Menu" class="btn btn-secondary px-4">Cancel</a>
+    </div>
+</form>
