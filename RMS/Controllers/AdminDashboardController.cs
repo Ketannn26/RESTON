@@ -19,13 +19,19 @@ namespace RMS.Controllers
         {
             var userRole = HttpContext.Session.GetString("UserRole");
 
+            // If no user is logged in, redirect to home page
+            if (string.IsNullOrEmpty(userRole))
+            {
+                return RedirectToAction("Reston", "Home");  // Redirect to the home page if not logged in
+            }
+
             if (userRole != "Admin")
             {
                 return RedirectToAction("SignIn", "Account");
             }
 
-            // Pass UserFullName to the view
-            ViewBag.FullName = HttpContext.Session.GetString("UserFullName");
+            ViewBag.UserFullName = HttpContext.Session.GetString("UserFullName");
+            ViewBag.UserRole = userRole;
 
             return View();
         }
@@ -33,155 +39,171 @@ namespace RMS.Controllers
         // GET: Menu
         public IActionResult MenuList()
         {
-            // Fetch all menu items from the database
+            
             var menus = _context.Menus.ToList();
-            ViewBag.SuccessMessage = "Menu added successfully!";
+            ViewBag.Message = TempData["Message"]?.ToString();
             return View(menus);
         }
 
-        // GET: AddMenu (Form for adding a menu item)
-        public IActionResult AddMenu()
+        // GET: Create Menu Item
+        public IActionResult CreateMenuItem()
         {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            if (userRole != "Admin")
+            {
+                return Unauthorized(); // Prevent unauthorized access
+            }
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddMenu(Menu menu, IFormFile Image)
+        public IActionResult CreateMenuItem(Menu menu, IFormFile ImageUrl)
         {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            if (userRole != "Admin")
+            {
+                return Unauthorized(); // Prevent unauthorized access
+            }
+
             if (!ModelState.IsValid)
             {
-                if (Image != null && Image.Length > 0)
+                if (ImageUrl != null && ImageUrl.Length > 0)
                 {
-                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
-                    Directory.CreateDirectory(uploadsFolder); // Ensure the folder exists
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
-                    var filePath = Path.Combine(uploadsFolder, fileName);
+                    // Save the uploaded image file
+                    var fileName = Path.GetFileName(ImageUrl.FileName);
+                    var filePath = Path.Combine("wwwroot/images", fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        await Image.CopyToAsync(stream);
+                        ImageUrl.CopyTo(stream);
                     }
 
-                    menu.ImageUrl = "/images/" + fileName; // Assign image URL to menu
+                    // Update the menu's ImageUrl with the file path
+                    menu.ImageUrl = "/images/" + fileName;
                 }
 
-                _context.Menus.Add(menu); // Add menu to the database
-                await _context.SaveChangesAsync(); // Save changes to the database
+                // Save the menu item to the database
+                _context.Menus.Add(menu);
+                _context.SaveChanges();
 
                 TempData["Message"] = "Menu item added successfully!";
-                return RedirectToAction("MenuList"); // Redirect to the menu list
+                return RedirectToAction(nameof(MenuList));
             }
 
-            TempData["Message"] = "Failed to add menu item. Please check the details.";
-            return View(menu); // Return the view with the current model
-        }
-
-
-
-        // GET: EditMenu (Load the menu item for editing)
-        public IActionResult EditMenu(int id)
-        {
-            // Find the menu item by ID
-            var menu = _context.Menus.FirstOrDefault(m => m.MenuItemID == id);
-
-            if (menu == null)
-            {
-                // Return a 404 error if the menu item is not found
-                return NotFound();
-            }
-
-            // Pass the menu item to the view
             return View(menu);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditMenu(Menu menu, IFormFile Image)
+
+        // GET: Delete Menu Item (Confirmation Page)
+        public IActionResult DeleteMenuItem(int id)
         {
-            if (!ModelState.IsValid)
+            var userRole = HttpContext.Session.GetString("UserRole");
+            if (userRole != "Admin")
             {
-                // Fetch existing menu item
-                var existingMenu = await _context.Menus.FindAsync(menu.MenuItemID);
-                if (existingMenu != null)
-                {
-                    // Update fields
-                    existingMenu.ItemName = menu.ItemName;
-                    existingMenu.Price = menu.Price;
-                    existingMenu.IsAvailable = menu.IsAvailable;
-
-                    // Handle image upload
-                    if (Image != null && Image.Length > 0)
-                    {
-                        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
-                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
-                        var filePath = Path.Combine(uploadsFolder, fileName);
-
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await Image.CopyToAsync(stream);
-                        }
-
-                        existingMenu.ImageUrl = "/images/" + fileName; // Update image path
-                    }
-
-                    _context.Menus.Update(existingMenu);
-                    await _context.SaveChangesAsync();
-
-                    return RedirectToAction("MenuList"); // Redirect to menu list
-                }
+                return Unauthorized(); // Prevent unauthorized access
             }
 
-            return View(menu); // Return view if validation fails
-        }
-
-
-        // GET: DeleteMenu (Confirm deletion)
-        public IActionResult DeleteItem(int id)
-        {
-            // Find the menu item by ID
-            var menu = _context.Menus.FirstOrDefault(m => m.MenuItemID == id);
-
+            var menu = _context.Menus.Find(id);
             if (menu == null)
             {
-                // Return a 404 error if the menu item is not found
-                return NotFound();
+                TempData["Message"] = "Menu item not found.";
+                return RedirectToAction(nameof(MenuList));
+            }
+            return View(menu);
+        }
+
+        // POST: Delete Menu Item
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfirmDeleteMenuItem(int id)
+        {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            if (userRole != "Admin")
+            {
+                return Unauthorized(); // Prevent unauthorized access
             }
 
-            return View(menu); // Load the confirmation view
+            var menu = _context.Menus.Find(id);
+            if (menu == null)
+            {
+                TempData["Message"] = "Menu item not found.";
+                return RedirectToAction(nameof(MenuList));
+            }
+
+            _context.Menus.Remove(menu);
+            _context.SaveChanges();
+            TempData["Message"] = "Menu item deleted successfully!";
+            return RedirectToAction(nameof(MenuList));
         }
+
+        // GET: Edit Menu Item
+        public IActionResult EditMenuItem(int id)
+        {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            if (userRole != "Admin")
+            {
+                return Unauthorized(); // Prevent unauthorized access
+            }
+
+            var menu = _context.Menus.FirstOrDefault(m => m.MenuItemID == id);
+            if (menu == null)
+            {
+                return NotFound();
+            }
+            return View(menu);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteMenu(int id)
+        public IActionResult EditMenuItem(Menu menu, IFormFile ImageUpload)
         {
-            try
+            var userRole = HttpContext.Session.GetString("UserRole");
+            if (userRole != "Admin")
             {
-                // Find the menu item
-                var menu = _context.Menus.Find(id);
-                if (menu == null)
+                return Unauthorized(); // Prevent unauthorized access
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var existingMenu = _context.Menus.FirstOrDefault(m => m.MenuItemID == menu.MenuItemID);
+                if (existingMenu == null)
                 {
-                    TempData["Message"] = "Menu item not found!";
-                    return RedirectToAction("MenuList");
+                    return NotFound();
                 }
 
-                // Delete the menu item
-                _context.Menus.Remove(menu);
+                // Update fields
+                existingMenu.ItemName = menu.ItemName;
+                existingMenu.Price = menu.Price;
+                existingMenu.IsAvailable = menu.IsAvailable;
+
+                if (ImageUpload != null && ImageUpload.Length > 0)
+                {
+                    // Save the uploaded image file
+                    var fileName = Path.GetFileName(ImageUpload.FileName);
+                    var filePath = Path.Combine("wwwroot/images", fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        ImageUpload.CopyTo(stream);
+                    }
+
+                    // Update ImageUrl
+                    existingMenu.ImageUrl = "/images/" + fileName;
+                }
+
+                // Save changes to the database
+                _context.Menus.Update(existingMenu);
                 _context.SaveChanges();
 
-                TempData["Message"] = "Menu item deleted successfully!";
-            }
-            catch (Exception ex)
-            {
-                TempData["Message"] = "An error occurred while deleting the menu item.";
-                Console.WriteLine($"Error: {ex.Message}");
+                TempData["Message"] = "Menu item updated successfully!";
+                return RedirectToAction(nameof(MenuList));
             }
 
-            return RedirectToAction("MenuList");
+            return View(menu);
         }
-
-
-
 
 
 

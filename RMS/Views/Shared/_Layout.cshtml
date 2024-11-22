@@ -16,17 +16,33 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
 
-                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Reston">
+                <a class="navbar-brand d-flex align-items-center"
+                   asp-area=""
+                   asp-controller="@(ViewBag.UserRole == null ? "Home" : (ViewBag.UserRole == "Admin" ? "AdminDashboard" : "CustomerDashboard"))"
+                   asp-action="@(ViewBag.UserRole == null ? "Reston" : (ViewBag.UserRole == "Admin" ? "Admin" : "Customer"))">
                     <i class="bi bi-shop me-2 text-primary"></i>
                     <span class="fw-bold fs-4 text-primary">RESTON</span>
                 </a>
 
-                <div class="d-flex justify-content-center">
-                    <a class="navbar-brand" asp-area="" asp-controller="Menu" asp-action="Menu">Menu</a>
-                    <a class="navbar-brand" asp-area="" asp-controller="About" asp-action="About">About</a>
-                    <a class="navbar-brand" asp-area="" asp-controller="Contact" asp-action="Contact">Contact</a>
-                    <a class="navbar-brand" asp-area="" asp-controller="BookTable" asp-action="BookTable">Book Table</a>
+
+
+
+                <div class="d-flex justify-content-center gap-4">
+                    <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Menu" ? "fw-bold text-primary border-bottom border-primary" : "")"
+                       asp-area="" asp-controller="Menu" asp-action="Menu">Menu</a>
+
+                    <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "About" ? "fw-bold text-primary border-bottom border-primary" : "")"
+                       asp-area="" asp-controller="About" asp-action="About">About</a>
+
+                    <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Contact" ? "fw-bold text-primary border-bottom border-primary" : "")"
+                       asp-area="" asp-controller="Contact" asp-action="Contact">Contact</a>
+
+                    <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "BookTable" ? "fw-bold text-primary border-bottom border-primary" : "")"
+                       asp-area="" asp-controller="BookTable" asp-action="BookTable">Book Table</a>
                 </div>
+
+
+
                 <div>
                     @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") == null)
                     {

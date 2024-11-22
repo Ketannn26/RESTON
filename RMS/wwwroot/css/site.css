@@ -53,5 +53,23 @@ body {
     border-radius: 15px; /* Rounded corners for uniformity */
 }
 
+.nav-link {
+    font-size: 1.25rem; /* Slightly larger text */
+    font-weight: 500; /* Medium weight */
+    text-decoration: none; /* Remove underline */
+    color: #333; /* Default text color */
+    padding: 0.75rem 1.25rem; /* Increased padding for a larger box */
+    border: 2px solid transparent; /* Initially transparent border */
+    transition: border-color 0.3s ease, transform 0.3s ease; /* Smooth transition for border and scaling */
+}
 
+    .nav-link:hover {
+        border-color: #88a7c9; /* Green border on hover */
+        transform: scale(1.05); /* Slightly enlarge the box on hover */
+    }
+
+    .nav-link.active {
+        border-color: #88a7c9; /* Active border color */
+        font-weight: 600; /* Bold active link */
+    }
 

@@ -1,0 +1,45 @@
+﻿@model RMS.Models.Menu
+
+@{
+    ViewData["Title"] = "Add Menu Item";
+}
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card shadow-sm p-4" style="width: 100%; max-width: 600px;">
+        <h2 class="text-center text-primary mb-4">Add New Menu Item</h2>
+
+        <form asp-action="CreateMenuItem" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="ItemName">Item Name</label>
+                <input type="text" class="form-control" id="ItemName" name="ItemName" required />
+            </div>
+
+            <div class="form-group">
+                <label for="Price">Price</label>
+                <input type="number" class="form-control" id="Price" name="Price" step="0.01" required />
+            </div>
+
+            <div class="form-group">
+                <label for="IsAvailable">Availability</label>
+                <select class="form-control" id="IsAvailable" name="IsAvailable">
+                    <option value="true">Available</option>
+                    <option value="false">Not Available</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ImageUrl">Upload Image</label>
+                <input type="file" class="form-control" id="ImageUrl" name="ImageUrl" accept="image/*" />
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary w-25 mt-2 me-4">
+                    Save
+                </button>
+                <a class="btn btn-secondary w-25 mt-2" asp-action="MenuList">
+                    Cancel
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>

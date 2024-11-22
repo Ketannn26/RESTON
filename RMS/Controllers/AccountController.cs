@@ -55,15 +55,13 @@ namespace RMS.Controllers
             var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
             if (user != null)
             {
-                // Store user information in session (optional)
-                //HttpContext.Session.SetString("UserRole", user.Role);
-                //HttpContext.Session.SetString("UserFullName", user.FullName);
+
                 HttpContext.Session.SetString("UserRole", user.Role);
                 HttpContext.Session.SetString("UserFullName", user.FullName);
 
                 if (user.Role == "Admin")
                     return RedirectToAction("Admin", "AdminDashboard");
-                else
+                else if(user.Role == "Customer")
                     return RedirectToAction("Customer", "CustomerDashboard");
             }
             ViewBag.ErrorMessage = "Invalid credentials";

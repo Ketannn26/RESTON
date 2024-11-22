@@ -17,9 +17,9 @@ namespace RMS.Controllers
         // GET: Menu
         public IActionResult Menu()
         {
-            var menus = _context.Menus.ToList(); // Retrieve all menu items from the Menus table
-
-            // Pass the menu items to the view
+            var userRole = HttpContext.Session.GetString("UserRole");
+            var menus = _context.Menus.ToList();
+            ViewBag.UserRole = userRole; // Pass role to the view
             return View(menus);
         }
  

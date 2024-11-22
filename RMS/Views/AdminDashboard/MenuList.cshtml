@@ -1,110 +1,51 @@
 ﻿@model IEnumerable<RMS.Models.Menu>
-@Html.AntiForgeryToken()
-@if (TempData["Message"] != null)
-{
-    <script>
-        showToast('@TempData["Message"]');
-    </script>
+
+@{
+    ViewData["Title"] = "Menu List";
 }
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col text-center">
-            <h1 class="mb-4">Our Menu</h1>
-            <p class="text-muted">Discover our delicious offerings below.</p>
-        </div>
-    </div>
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card shadow-sm p-4" style="width: 100%; max-width: 900px;">
+        <h2 class="text-center text-primary mb-4">Menu List</h2>
 
-    <!-- Menu Table -->
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white text-center">
-                    <h4>Menu Items</h4>
-                </div>
-                <div class="card-body">
-                    <table class="table table-hover align-middle">
-                        <thead class="table-secondary">
-                            <tr>
-                                <th>MenuItemID</th>
-                                <th>Item Name</th>
-                                <th>Price</th>
-                                <th>Availability</th>
-                                <th class="text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.MenuItemID</td>
-                                    <td>@item.ItemName</td>
-                                    <td>₹@item.Price</td>
-                                    <td>
-                                        <span class="badge @(item.IsAvailable ? "bg-success" : "bg-danger")">
-                                            @(item.IsAvailable ? "Available" : "Unavailable")
-                                        </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <a asp-action="EditMenu" asp-route-id="@item.MenuItemID" class="btn btn-sm btn-warning me-1">Edit</a>
-                                        <!-- Delete Button triggers modal -->
-                                        <button type="button"
-                                                class="btn btn-sm btn-danger delete-button"
-                                                data-id="@item.MenuItemID"
-                                                data-name="@item.ItemName"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal">
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-success text-center">@ViewBag.Message</div>
+        }
 
-                    <!-- Delete Confirmation Modal -->
-                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p id="deleteMessage">Are you sure you want to delete this item?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <form id="deleteForm" method="post" asp-action="DeleteMenu">
-                                        <input type="hidden" name="id" id="menuIdToDelete" />
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <table class="table table-striped table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th>Available</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var menu in Model)
+                {
+                    <tr>
+                        <td>@menu.ItemName</td>
+                        <td>@menu.Price</td>
+                        <td>@(menu.IsAvailable ? "Yes" : "No")</td>
+                        <td>
+                            <a asp-action="EditMenuItem" asp-route-id="@menu.MenuItemID" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a asp-action="DeleteMenuItem" asp-route-id="@menu.MenuItemID" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                <div class="card-footer text-center">
-                    <a asp-action="AddMenu" class="btn btn-success px-4">Add New Menu Item</a>
-                </div>
-            </div>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-success" asp-action="CreateMenuItem">
+                <i class="bi bi-plus-circle"></i> Add New Menu Item
+            </a>
         </div>
     </div>
 </div>
-
-    @if (ViewBag.SuccessMessage != null)
-    {
-        <div class="alert alert-success">
-            @ViewBag.SuccessMessage
-        </div>
-    }
-@section Scripts
-{
-    <script src="~/js/MenuList.js"></script>
-}
-
