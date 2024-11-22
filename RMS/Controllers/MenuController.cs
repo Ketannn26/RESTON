@@ -17,7 +17,10 @@ namespace RMS.Controllers
         // GET: Menu
         public IActionResult Menu()
         {
-            return View();
+            var menus = _context.Menus.ToList(); // Retrieve all menu items from the Menus table
+
+            // Pass the menu items to the view
+            return View(menus);
         }
  
     }

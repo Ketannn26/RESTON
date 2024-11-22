@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RMS.Data;
 
@@ -10,9 +11,11 @@ using RMS.Data;
 namespace RMS.Migrations
 {
     [DbContext(typeof(RMSDbContext))]
-    partial class RMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241122051348_ImageUrltoMenu")]
+    partial class ImageUrltoMenu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

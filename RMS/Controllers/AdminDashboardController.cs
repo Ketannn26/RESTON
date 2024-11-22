@@ -43,25 +43,41 @@ namespace RMS.Controllers
             return View();
         }
 
-        // POST: AddMenu (Handles form submission)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddMenu(Menu menu)
+        public async Task<IActionResult> AddMenu(Menu menu, IFormFile Image)
         {
-
             if (ModelState.IsValid)
             {
-                // Add menu item to the database
+                if (Image != null && Image.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder); // Ensure the folder exists
+                    }
+
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
+                    var filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await Image.CopyToAsync(stream); // Save the image to the server
+                    }
+
+                    menu.ImageUrl = "/images/" + fileName; // Store the relative path to the image in the database
+                }
+
+                // Save menu item to the database
                 _context.Menus.Add(menu);
-                _context.SaveChanges();
-                return RedirectToAction("MenuList"); // Redirect to menu list
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("MenuList"); // Redirect to the menu page
             }
 
-            // If model is invalid, return to form with validation errors
-            return View(menu);
-
-
+            return View(menu); // Return to the AddMenu form if validation fails
         }
+
 
         // GET: EditMenu (Load the menu item for editing)
         public IActionResult EditMenu(int id)
@@ -79,23 +95,57 @@ namespace RMS.Controllers
             return View(menu);
         }
 
-        // POST: EditMenu (Save changes to the menu item)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditMenu(Menu menu)
+        public async Task<IActionResult> EditMenu(Menu menu, IFormFile Image)
         {
             if (ModelState.IsValid)
             {
-                // Update the menu item in the database
-                _context.Menus.Update(menu);
-                _context.SaveChanges();
+                // Fetch the existing menu item from the database
+                var existingMenuItem = await _context.Menus.FindAsync(menu.MenuItemID);
 
-                // Redirect to the menu list after editing
-                return RedirectToAction("MenuList");
+                if (existingMenuItem == null)
+                {
+                    return NotFound(); // Handle if the menu item does not exist
+                }
+
+                // Update the menu properties (excluding the ImageUrl if no new image is uploaded)
+                existingMenuItem.ItemName = menu.ItemName;
+                existingMenuItem.Price = menu.Price;
+                existingMenuItem.IsAvailable = menu.IsAvailable;
+
+                // Handle image upload if a new image is provided
+                if (Image != null && Image.Length > 0)
+                {
+                    // Delete the old image file (if necessary)
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+                    var oldImagePath = Path.Combine(uploadsFolder, Path.GetFileName(existingMenuItem.ImageUrl.TrimStart('/')));
+
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath); // Delete the old image file
+                    }
+
+                    // Save the new image file
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
+                    var filePath = Path.Combine(uploadsFolder, fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await Image.CopyToAsync(stream);
+                    }
+
+                    // Update the ImageUrl property
+                    existingMenuItem.ImageUrl = "/images/" + fileName;
+                }
+
+                // Save the changes to the database
+                _context.Menus.Update(existingMenuItem);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("MenuList"); // Redirect to the menu list page after updating
             }
 
-            // Return to the form if validation fails
-            return View(menu);
+            return View(menu); // Return to the EditMenu form if validation fails
         }
 
         // GET: DeleteMenu (Confirm deletion)
@@ -116,25 +166,28 @@ namespace RMS.Controllers
         // POST: DeleteMenu (Perform deletion)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ConfirmDeleteItem(int id)
+        public IActionResult DeleteMenu(int id)
         {
-            // Find the menu item by ID
-            var menu = _context.Menus.FirstOrDefault(m => m.MenuItemID == id);
-
-            if (menu == null)
+            var menu = _context.Menus.Find(id);
+            try
             {
-                // Return a 404 error if the menu item is not found
-                return NotFound();
+                // Your logic to delete the menu item
+                _context.Menus.Remove(menu);
+                _context.SaveChanges();
+
+                // Add a success message to TempData
+                TempData["Message"] = "Menu item deleted successfully!";
+            }
+            catch (Exception ex)
+            {
+                // Handle error
+                TempData["Message"] = "Error deleting the menu item.";
             }
 
-            // Remove the menu item from the database
-            _context.Menus.Remove(menu);
-            _context.SaveChanges();
-
-
-            // Redirect to the menu list after deletion
             return RedirectToAction("MenuList");
+
         }
+
 
 
     }

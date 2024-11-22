@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<RMS.Models.Menu>
-
+@Html.AntiForgeryToken()
+@if (TempData["Message"] != null)
+{
+    <script>
+        showToast('@TempData["Message"]');
+    </script>
+}
 <div class="container mt-5">
     <div class="row">
         <div class="col text-center">
@@ -41,36 +47,41 @@
                                     <td class="text-end">
                                         <a asp-action="EditMenu" asp-route-id="@item.MenuItemID" class="btn btn-sm btn-warning me-1">Edit</a>
                                         <!-- Delete Button triggers modal -->
-                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@item.MenuItemID">
+                                        <button type="button"
+                                                class="btn btn-sm btn-danger delete-button"
+                                                data-id="@item.MenuItemID"
+                                                data-name="@item.ItemName"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal">
                                             Delete
                                         </button>
                                     </td>
                                 </tr>
-                                <!-- Modal for Delete Confirmation -->
-                                <div class="modal fade" id="deleteModal-@item.MenuItemID" tabindex="-1" aria-labelledby="deleteModalLabel-@item.MenuItemID" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteModalLabel-@item.MenuItemID">Delete Confirmation</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Are you sure you want to delete the menu item <strong>@item.ItemName</strong>?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                <form asp-action="MenuList" method="post">
-                                                    <input type="hidden" name="id" value="@item.MenuItemID" />
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             }
                         </tbody>
                     </table>
-                </div>
+
+                    <!-- Delete Confirmation Modal -->
+                    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete <span id="deleteItemName"></span>?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button id="confirmDelete" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 <div class="card-footer text-center">
                     <a asp-action="AddMenu" class="btn btn-success px-4">Add New Menu Item</a>
                 </div>
@@ -78,3 +89,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script src="~/js/MenuList.js"></script>
+}
+
