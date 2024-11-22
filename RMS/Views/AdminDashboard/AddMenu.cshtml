@@ -1,45 +1,43 @@
 ﻿@model RMS.Models.Menu
+<div class="text-danger">
+    @Html.ValidationSummary(true)
+</div>
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <!-- Card Container -->
-            <div class="card shadow-sm">
+            <div class="card shadow">
                 <div class="card-header bg-primary text-white text-center">
                     <h4>Add Menu Item</h4>
                 </div>
                 <div class="card-body">
-                    <form asp-action="AddMenu" method="post">
+                    <form asp-action="AddMenu" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
 
-                        <!-- Item Name -->
                         <div class="mb-3">
                             <label asp-for="ItemName" class="form-label">Item Name</label>
-                            <input asp-for="ItemName" class="form-control" placeholder="Enter item name" />
+                            <input asp-for="ItemName" class="form-control" />
                             <span asp-validation-for="ItemName" class="text-danger"></span>
                         </div>
 
-                        <!-- Price -->
                         <div class="mb-3">
                             <label asp-for="Price" class="form-label">Price</label>
-                            <input asp-for="Price" type="number" step="0.01" class="form-control" placeholder="Enter price" />
+                            <input asp-for="Price" type="number" step="0.01" class="form-control" />
                             <span asp-validation-for="Price" class="text-danger"></span>
                         </div>
 
-                        <!-- Is Available -->
-                        <div class="mb-3 form-check">
-                            <input asp-for="IsAvailable" type="checkbox" class="form-check-input" id="IsAvailable" />
-                            <label asp-for="IsAvailable" class="form-check-label">Available</label>
-                        </div>
-
-                        <!-- Image Upload -->
                         <div class="mb-3">
-                            <label for="Image" class="form-label">Item Image</label>
-                            <input type="file" name="Image" class="form-control" accept="image/*" />
+                            <label asp-for="IsAvailable" class="form-label">Available</label>
+                            <input asp-for="IsAvailable" type="checkbox" />
                         </div>
 
-                        <!-- Submit Button -->
+                        <div class="mb-3">
+                            <label for="Image" class="form-label">Image</label>
+                            <input type="file" name="Image" class="form-control" />
+                        </div>
+
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success px-4">Add Menu</button>
+                            <button type="submit" class="btn btn-success">Add Menu</button>
                         </div>
                     </form>
                 </div>

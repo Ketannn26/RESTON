@@ -44,9 +44,9 @@
 
                         <!-- Image Upload (Optional) -->
                         <div class="mb-3">
-                            <label for="Image" class="form-label">Upload New Image (Optional)</label>
-                            <input type="file" name="Image" class="form-control" accept="image/*" />
-                            <small class="text-muted">If you want to change the image, upload a new one.</small>
+                            <label for="Image" class="form-label">Menu Image</label>
+                            <input type="file" name="Image" class="form-control" />
+                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
                         </div>
 
 

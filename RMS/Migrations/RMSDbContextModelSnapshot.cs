@@ -45,7 +45,7 @@ namespace RMS.Migrations
 
                     b.HasKey("MenuItemID");
 
-                    b.ToTable("Menus");
+                    b.ToTable("Menus", (string)null);
                 });
 
             modelBuilder.Entity("RMS.Models.User", b =>
@@ -83,7 +83,7 @@ namespace RMS.Migrations
 
                     b.HasKey("U_Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618
         }

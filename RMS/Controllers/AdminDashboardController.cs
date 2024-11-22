@@ -6,6 +6,7 @@ using RMS.Models;
 
 namespace RMS.Controllers
 {
+    [Route("[controller]/[action]")]
     public class AdminDashboardController : Controller
     {
         private readonly RMSDbContext _context;
@@ -34,6 +35,7 @@ namespace RMS.Controllers
         {
             // Fetch all menu items from the database
             var menus = _context.Menus.ToList();
+            ViewBag.SuccessMessage = "Menu added successfully!";
             return View(menus);
         }
 
@@ -47,36 +49,34 @@ namespace RMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddMenu(Menu menu, IFormFile Image)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 if (Image != null && Image.Length > 0)
                 {
                     var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
-                    if (!Directory.Exists(uploadsFolder))
-                    {
-                        Directory.CreateDirectory(uploadsFolder); // Ensure the folder exists
-                    }
-
+                    Directory.CreateDirectory(uploadsFolder); // Ensure the folder exists
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
                     var filePath = Path.Combine(uploadsFolder, fileName);
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
-                        await Image.CopyToAsync(stream); // Save the image to the server
+                        await Image.CopyToAsync(stream);
                     }
 
-                    menu.ImageUrl = "/images/" + fileName; // Store the relative path to the image in the database
+                    menu.ImageUrl = "/images/" + fileName; // Assign image URL to menu
                 }
 
-                // Save menu item to the database
-                _context.Menus.Add(menu);
-                await _context.SaveChangesAsync();
+                _context.Menus.Add(menu); // Add menu to the database
+                await _context.SaveChangesAsync(); // Save changes to the database
 
-                return RedirectToAction("MenuList"); // Redirect to the menu page
+                TempData["Message"] = "Menu item added successfully!";
+                return RedirectToAction("MenuList"); // Redirect to the menu list
             }
 
-            return View(menu); // Return to the AddMenu form if validation fails
+            TempData["Message"] = "Failed to add menu item. Please check the details.";
+            return View(menu); // Return the view with the current model
         }
+
 
 
         // GET: EditMenu (Load the menu item for editing)
@@ -99,54 +99,42 @@ namespace RMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditMenu(Menu menu, IFormFile Image)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                // Fetch the existing menu item from the database
-                var existingMenuItem = await _context.Menus.FindAsync(menu.MenuItemID);
-
-                if (existingMenuItem == null)
+                // Fetch existing menu item
+                var existingMenu = await _context.Menus.FindAsync(menu.MenuItemID);
+                if (existingMenu != null)
                 {
-                    return NotFound(); // Handle if the menu item does not exist
-                }
+                    // Update fields
+                    existingMenu.ItemName = menu.ItemName;
+                    existingMenu.Price = menu.Price;
+                    existingMenu.IsAvailable = menu.IsAvailable;
 
-                // Update the menu properties (excluding the ImageUrl if no new image is uploaded)
-                existingMenuItem.ItemName = menu.ItemName;
-                existingMenuItem.Price = menu.Price;
-                existingMenuItem.IsAvailable = menu.IsAvailable;
-
-                // Handle image upload if a new image is provided
-                if (Image != null && Image.Length > 0)
-                {
-                    // Delete the old image file (if necessary)
-                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
-                    var oldImagePath = Path.Combine(uploadsFolder, Path.GetFileName(existingMenuItem.ImageUrl.TrimStart('/')));
-
-                    if (System.IO.File.Exists(oldImagePath))
+                    // Handle image upload
+                    if (Image != null && Image.Length > 0)
                     {
-                        System.IO.File.Delete(oldImagePath); // Delete the old image file
+                        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
+                        var filePath = Path.Combine(uploadsFolder, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await Image.CopyToAsync(stream);
+                        }
+
+                        existingMenu.ImageUrl = "/images/" + fileName; // Update image path
                     }
 
-                    // Save the new image file
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(Image.FileName);
-                    var filePath = Path.Combine(uploadsFolder, fileName);
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await Image.CopyToAsync(stream);
-                    }
+                    _context.Menus.Update(existingMenu);
+                    await _context.SaveChangesAsync();
 
-                    // Update the ImageUrl property
-                    existingMenuItem.ImageUrl = "/images/" + fileName;
+                    return RedirectToAction("MenuList"); // Redirect to menu list
                 }
-
-                // Save the changes to the database
-                _context.Menus.Update(existingMenuItem);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction("MenuList"); // Redirect to the menu list page after updating
             }
 
-            return View(menu); // Return to the EditMenu form if validation fails
+            return View(menu); // Return view if validation fails
         }
+
 
         // GET: DeleteMenu (Confirm deletion)
         public IActionResult DeleteItem(int id)
@@ -163,30 +151,37 @@ namespace RMS.Controllers
             return View(menu); // Load the confirmation view
         }
 
-        // POST: DeleteMenu (Perform deletion)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteMenu(int id)
         {
-            var menu = _context.Menus.Find(id);
             try
             {
-                // Your logic to delete the menu item
+                // Find the menu item
+                var menu = _context.Menus.Find(id);
+                if (menu == null)
+                {
+                    TempData["Message"] = "Menu item not found!";
+                    return RedirectToAction("MenuList");
+                }
+
+                // Delete the menu item
                 _context.Menus.Remove(menu);
                 _context.SaveChanges();
 
-                // Add a success message to TempData
                 TempData["Message"] = "Menu item deleted successfully!";
             }
             catch (Exception ex)
             {
-                // Handle error
-                TempData["Message"] = "Error deleting the menu item.";
+                TempData["Message"] = "An error occurred while deleting the menu item.";
+                Console.WriteLine($"Error: {ex.Message}");
             }
 
             return RedirectToAction("MenuList");
-
         }
+
+
+
 
 
 
