@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RMS.Data;
 using RMS.Models;
@@ -30,7 +31,14 @@ namespace RMS.Controllers
                 var existingUser = _context.Users.FirstOrDefault(u => u.Email == user.Email);
                 if (existingUser != null)
                 {
-                    ModelState.AddModelError("", "Email is already registered.");
+                    // Add a custom error message for the email field
+                    ModelState.AddModelError("Email", "Email is already registered.");
+                    return View(user);
+                }
+                // Check if the phone number is exactly 10 digits
+                if (user.PhoneNumber.Length != 10)
+                {
+                    ModelState.AddModelError("PhoneNumber", "Phone number must be exactly 10 digits.");
                     return View(user);
                 }
 
@@ -64,7 +72,7 @@ namespace RMS.Controllers
                 else if(user.Role == "Customer")
                     return RedirectToAction("Customer", "CustomerDashboard");
             }
-            ViewBag.ErrorMessage = "Invalid credentials";
+            ViewBag.ErrorMessage = "Invalid email or password.";
             return View();
         }
 
@@ -119,10 +127,8 @@ namespace RMS.Controllers
         // Sign Out
         public IActionResult SignOut()
         {
-            //HttpContext.Session.Clear();
-            HttpContext.Session.Remove("UserRole");
-            HttpContext.Session.Remove("UserFullName");
-            return RedirectToAction("SignIn");
+            HttpContext.Session.Clear(); // Clear all sessions
+            return RedirectToAction("Reston","Home");
         }
     }
 }

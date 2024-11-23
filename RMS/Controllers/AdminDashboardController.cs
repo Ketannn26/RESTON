@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RMS.Data;
 using RMS.Models;
@@ -205,6 +206,94 @@ namespace RMS.Controllers
             return View(menu);
         }
 
+        // View all users
+        public IActionResult UserList()
+        {
+            var users = _context.Users.ToList();
+            return View(users);
+        }
+
+        // Add a new user
+        [HttpGet]
+        public IActionResult AddUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddUser(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Users.Add(user);
+                _context.SaveChanges();
+                return RedirectToAction("UserList");
+            }
+            return View(user);
+        }
+
+        // Edit user (optional)
+        public IActionResult EditUser(int id)
+        {
+            var user = _context.Users.Find(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.Roles = new SelectList(new List<string> { "Customer", "Admin" }, user.Role);
+            return View(user);
+        }
+
+        // Edit user (POST)
+        [HttpPost]
+        public IActionResult EditUser(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUser = _context.Users.Find(user.U_Id);
+                if (existingUser != null)
+                {
+                    existingUser.FullName = user.FullName;
+                    existingUser.Email = user.Email;
+                    existingUser.Role = user.Role;
+
+                    // Only update password if it's changed
+                    if (!string.IsNullOrEmpty(user.Password))
+                    {
+                        existingUser.Password = user.Password;
+                    }
+
+                    _context.SaveChanges();
+                    return RedirectToAction("UserList");
+                }
+            }
+            return View(user);
+        }
+
+        // GET: DeleteUser (Confirmation Page)
+        public IActionResult DeleteUser(int id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.U_Id == id);
+            if (user == null)
+            {
+                return NotFound(); // Handle case where user doesn't exist
+            }
+            return View(user); // Pass the user to the confirmation view
+        }
+
+
+        [HttpPost]
+        public IActionResult ConfirmDeleteUser(int id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.U_Id == id);
+            if (user != null)
+            {
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("UserList");
+        }
 
 
     }

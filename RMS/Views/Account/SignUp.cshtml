@@ -8,6 +8,14 @@
             <div class="card shadow-lg p-4 mt-5">
                 <h2 class="text-center mb-4">Sign Up</h2>
 
+                <!-- Show error message if ModelState has any errors -->
+                @if (ViewData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewData["ErrorMessage"]
+                    </div>
+                }
+
                 <form asp-action="SignUp" method="post">
                     <!-- Full Name -->
                     <div class="form-group">
@@ -33,14 +41,23 @@
                     <!-- Phone Number -->
                     <div class="form-group mt-3">
                         <label for="PhoneNumber">Phone Number</label>
-                        <input asp-for="PhoneNumber" class="form-control" id="PhoneNumber" placeholder="Enter your phone number" required />
+                        <input asp-for="PhoneNumber"
+                               class="form-control"
+                               id="PhoneNumber"
+                               placeholder="Enter your phone number"
+                               required
+                               type="tel"
+                               pattern="^\d{10}$"
+                               title="Phone number must be exactly 10 digits." />
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
 
+
                     <!-- Role Dropdown -->
                     <div class="form-group mt-3">
-                        <label for="Role">Role</label>
-                        <select asp-for="Role" class="form-control" id="Role" required>
+                        <label for="Role" class="font-weight-bold text-secondary">Role</label>
+                        <select asp-for="Role" class="form-control custom-select" id="Role" required>
+                            <option value="" disabled selected>Select Role</option>
                             <option value="Customer">Customer</option>
                             <option value="Admin">Admin</option>
                         </select>

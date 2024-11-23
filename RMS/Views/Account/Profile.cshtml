@@ -24,7 +24,7 @@
         <!-- Button to show main content -->
         <div class="text-center">
             <button id="toggleContentButton" class="btn btn-primary w-100 mt-3">Edit Profile</button>
-            <a href="/Account/SignOut" class="btn btn-light text-bg-danger w-100 mt-3">Sign Out</a>
+            <a href="#" class="btn btn-danger w-100 mt-3" id="signOutBtn">Sign Out</a>
         </div>
     </div>
 
@@ -58,14 +58,4 @@
     </div>
 </div>
 
-<script>
-    // JavaScript to toggle the main content visibility
-    document.getElementById("toggleContentButton").addEventListener("click", function () {
-        const mainContent = document.getElementById("mainContent");
-        if (mainContent.style.display === "none" || mainContent.style.display === "") {
-            mainContent.style.display = "block"; // Show the content
-        } else {
-            mainContent.style.display = "none"; // Hide the content
-        }
-    });
-</script>
+<script src="~/js/Profile.js"></script>

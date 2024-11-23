@@ -40,39 +40,22 @@
                     <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "BookTable" ? "fw-bold text-primary border-bottom border-primary" : "")"
                        asp-area="" asp-controller="BookTable" asp-action="BookTable">Book Table</a>
                 </div>
-
-
-
                 <div>
                     @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") == null)
                     {
                         <a class="btn btn-primary ms-auto" asp-area="" asp-controller="Account" asp-action="SignIn">Sign In</a>
                     }
+                    else
+                    {
+                        <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Account" asp-action="Profile">
+                            <i class="bi bi-person-circle" style="font-size: 1.5rem; margin-right: 8px;"></i>
+                        </a>
+                    }
                 </div>
-
             </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-               <div class="collapse navbar-collapse" id="navbarNav">
-                 <ul class="navbar-nav ms-auto"></ul>
-
-                        @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") == "Admin")
-                        {
-                            <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Account" asp-action="Profile">
-                               <i class="bi bi-person-circle" style="font-size: 1.5rem; margin-right: 8px;"></i>
-                            </a>
-                           
-                        }
-                        @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") == "Customer")
-                        {
-
-                        <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Account" asp-action="Profile">
-                            <i class="bi bi-person-circle" style="font-size: 1.5rem; margin-right: 8px;"></i>
-                        </a>
-
-                        }
-               </div>
         </nav>
     </header>
     <div class="container">
