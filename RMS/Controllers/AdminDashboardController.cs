@@ -213,26 +213,7 @@ namespace RMS.Controllers
             return View(users);
         }
 
-        // Add a new user
-        [HttpGet]
-        public IActionResult AddUser()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult AddUser(User user)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Users.Add(user);
-                _context.SaveChanges();
-                return RedirectToAction("UserList");
-            }
-            return View(user);
-        }
-
-        // Edit user (optional)
+        // Edit User (GET)
         public IActionResult EditUser(int id)
         {
             var user = _context.Users.Find(id);
@@ -245,43 +226,47 @@ namespace RMS.Controllers
             return View(user);
         }
 
-        // Edit user (POST)
+        // Edit User (POST)
         [HttpPost]
-        public IActionResult EditUser(User user)
+        public IActionResult EditUser(User user, string newPassword)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var existingUser = _context.Users.Find(user.U_Id);
-                if (existingUser != null)
-                {
-                    existingUser.FullName = user.FullName;
-                    existingUser.Email = user.Email;
-                    existingUser.Role = user.Role;
-
-                    // Only update password if it's changed
-                    if (!string.IsNullOrEmpty(user.Password))
-                    {
-                        existingUser.Password = user.Password;
-                    }
-
-                    _context.SaveChanges();
-                    return RedirectToAction("UserList");
-                }
+                ViewBag.Roles = new SelectList(new List<string> { "Customer", "Admin" }, user.Role);
+                return View(user);
             }
-            return View(user);
+
+            var existingUser = _context.Users.Find(user.U_Id);
+            if (existingUser == null)
+            {
+                return NotFound();
+            }
+
+            existingUser.FullName = user.FullName;
+            existingUser.Email = user.Email;
+            existingUser.Role = user.Role;
+
+            // Update password only if new password is provided
+            if (!string.IsNullOrWhiteSpace(newPassword))
+            {
+                existingUser.Password = newPassword; // Ideally, hash the password here
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("UserList");
         }
 
-        // GET: DeleteUser (Confirmation Page)
+
         public IActionResult DeleteUser(int id)
         {
             var user = _context.Users.FirstOrDefault(u => u.U_Id == id);
             if (user == null)
             {
-                return NotFound(); // Handle case where user doesn't exist
+                TempData["ErrorMessage"] = "User not found.";
+                return RedirectToAction("UserList");
             }
-            return View(user); // Pass the user to the confirmation view
+            return View(user); // Pass the user to the view
         }
-
 
         [HttpPost]
         public IActionResult ConfirmDeleteUser(int id)
@@ -291,9 +276,14 @@ namespace RMS.Controllers
             {
                 _context.Users.Remove(user);
                 _context.SaveChanges();
+
             }
+
+            TempData["SuccessMessage"] = "User deleted successfully.";
             return RedirectToAction("UserList");
         }
+
+
 
 
     }

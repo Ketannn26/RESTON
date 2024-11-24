@@ -10,41 +10,40 @@
             <!-- Full Name -->
             <div class="form-group">
                 <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" id="FullName" required />
+                <input asp-for="FullName" class="form-control" required />
                 <span asp-validation-for="FullName" class="text-danger"></span>
             </div>
 
             <!-- Email Address -->
             <div class="form-group mt-3">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" id="Email" type="email" required />
+                <input asp-for="Email" class="form-control" type="email" required />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <!-- Role Selection -->
             <div class="form-group mt-3">
-               <label asp-for="Role" class="control-label"></label>
-                <select asp-for="Role" class="form-control" asp-items="ViewBag.Roles" id="Role" required></select>
-               <span asp-validation-for="Role" class="text-danger"></span>
+                <label asp-for="Role" class="control-label"></label>
+                <select asp-for="Role" class="form-control" asp-items="ViewBag.Roles" required></select>
+                <span asp-validation-for="Role" class="text-danger"></span>
             </div>
 
-
-            <!-- Password -->
+            <!-- Current Password -->
             <div class="form-group mt-3">
                 <label asp-for="Password" class="control-label">Current Password</label>
-                <input asp-for="Password" class="form-control" id="Password" type="text" readonly />
+                <input asp-for="Password" class="form-control" type="text" readonly />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <!-- Change Password -->
+
+            <!-- New Password -->
             <div class="form-group mt-3">
                 <label asp-for="Password" class="control-label">New Password</label>
-                <input asp-for="Password" class="form-control" id="NewPassword" type="password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <input name="newPassword" id="newPassword" class="form-control" type="password" />
             </div>
 
             <!-- Submit and Cancel Buttons -->
             <div class="d-flex justify-content-center mt-4">
-                <button type="submit" class="btn btn-warning w-25 me-2">Update User</button>
+                <button type="submit" class="btn btn-warning w-25 me-2">Update</button>
                 <a class="btn btn-secondary w-25" asp-action="UserList">Cancel</a>
             </div>
         </form>
