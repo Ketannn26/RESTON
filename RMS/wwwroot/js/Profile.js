@@ -21,7 +21,7 @@ document.getElementById("signOutBtn").addEventListener("click", function (event)
         .then(response => {
             if (response.ok) {
                 // Redirect to another action, e.g., the home page
-                window.location.href = "/Home/Reston";
+                window.location.href = "/Home/Index";
             } else {
                 alert("Error signing out");
             }

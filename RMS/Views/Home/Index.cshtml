@@ -2,119 +2,100 @@
     ViewData["Title"] = "Home - Reston";
 }
 
-<div class="container mt-5">
+<div class="mt-5">
     <!-- Welcome Section -->
     <div class="text-center">
         <h1 class="display-4 text-primary">Welcome to Reston!</h1>
         <p class="lead text-muted">Experience the finest dining with our delicious menu and exceptional service.</p>
     </div>
 
-    <div class="container mt-5">
-        <div class="row row-cols-1 row-cols-md-1 g-4">
-            <div id="menuCarousel" class="carousel slide mt-4" data-bs-ride="carousel" data-bs-interval="3000">
-                <!-- Indicators -->
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#menuCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#menuCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#menuCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                </div>
-
-                <!-- Slides -->
-                <div class="carousel-inner">
-                    <!-- Breakfast Slide -->
-                    <div class="carousel-item active">
-                        <div class="position-relative">
-                            <!-- Image Section -->
-                            <img src="/images/bf.jpg" class="d-block w-100 h-100" alt="Breakfast">
-
-                            <!-- Text Section on top of the image -->
-                            <div class="position-absolute top-50 start-50 translate-middle text-center text-light">
-                                <h2 class="mb-4">Breakfast</h2>
-                                <p class="mb-4">Start your day with our hearty breakfast options, crafted with care.</p>
-                                <a asp-controller="Menu" asp-action="Breakfast" class="btn btn-primary">View Breakfast Menu</a>
+    <!-- Carousel Card -->
+    <div class="mb-4">
+        <!-- Single Card Container -->
+        <div class="card shadow-sm" style="width: 1200px; height: auto; background-color: transparent; backdrop-filter: blur(10px); border-radius: 0; margin: 0 auto;">
+            <div class="card-body p-0">
+                <!-- Flex container for three sections -->
+                <div class="row g-0">
+                    <!-- Breakfast Section -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 rounded-3">
+                            <!-- Added rounded-3 to the card -->
+                            <img src="/images/bf.jpg" class="card-img-top rounded-3" alt="Breakfast" style="object-fit: cover; height: 300px;">
+                            <div class="card-body text-center" style="border-radius: 10px;">
+                                <h5 class="card-title fw-bold text-dark">Breakfast</h5>
+                                <p class="card-text text-dark">Start your day with a delicious and energizing breakfast.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Lunch Slide -->
-                    <div class="carousel-item">
-                        <div class="position-relative">
-                            <!-- Image Section -->
-                            <img src="/images/SigDish.jpg" class="d-block w-100 h-100" alt="Lunch">
-
-                            <!-- Text Section on top of the image -->
-                            <div class="position-absolute top-50 start-50 translate-middle text-center text-light">
-                                <h2 class="mb-4">Lunch</h2>
-                                <p class="mb-4">Enjoy a fulfilling lunch with our freshly made dishes.</p>
-                                <a asp-controller="Menu" asp-action="Lunch" class="btn btn-primary">View Lunch Menu</a>
+                    <!-- Lunch Section -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 rounded-3">
+                            <!-- Added rounded-3 to the card -->
+                            <img src="/images/SigDish.jpg" class="card-img-top rounded-3" alt="Lunch" style="object-fit: cover; height: 300px;">
+                            <div class="card-body text-center" style="border-radius: 10px;">
+                                <h5 class="card-title fw-bold text-dark">Lunch</h5>
+                                <p class="card-text text-dark">Enjoy a hearty and flavorful lunch to fuel your afternoon.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Dinner Slide -->
-                    <div class="carousel-item">
-                        <div class="position-relative">
-                            <!-- Image Section -->
-                            <img src="/images/bg.jpg" class="d-block w-100 h-100" alt="Dinner">
-
-                            <!-- Text Section on top of the image -->
-                            <div class="position-absolute top-50 start-50 translate-middle text-center text-light">
-                                <h2 class="mb-4">Dinner</h2>
-                                <p class="mb-4">End your day with a delightful dinner from our exquisite menu.</p>
-                                <a asp-controller="Menu" asp-action="Dinner" class="btn btn-primary">View Dinner Menu</a>
+                    <!-- Dinner Section -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 rounded-3">
+                            <!-- Added rounded-3 to the card -->
+                            <img src="/images/bg.jpg" class="card-img-top rounded-3" alt="Dinner" style="object-fit: cover; height: 300px;">
+                            <div class="card-body text-center" style="border-radius: 10px;">
+                                <h5 class="card-title fw-bold text-dark">Dinner</h5>
+                                <p class="card-text text-dark">End your day with a delightful dinner from our exquisite menu.</p>
                             </div>
                         </div>
                     </div>
-
-
-                    <!-- Controls -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#menuCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#menuCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
 
+            </div>
 
+            <!-- Single "View Menu" Button -->
+            <div class="card-footer text-center">
+                <a href="/Menu/Menu" class="btn btn-primary btn-lg">View Menu</a>
+            </div>
+        </div>
+    </div>
 
-                <!-- About Card -->
-                <div class="col">
-                    <div class="card text-center shadow-sm bg-light">
-                        <img src="/images/about.jpg" class="card-img-top rounded-circle mx-auto mt-4" alt="About" style="width: 150px; height: 150px;">
-                        <div class="card-body">
-                            <h5 class="card-title">About Us</h5>
-                            <p class="card-text">Learn more about our story and commitment to quality dining.</p>
-                            <a asp-controller="About" asp-action="About" class="btn btn-primary">Learn More</a>
-                        </div>
-                    </div>
+        <!-- About Us Card -->
+        <div class="mb-4">
+        <div class="card text-center shadow-sm mx-auto" style="max-width: 1200px; background-color: transparent; backdrop-filter: blur(10px); border-radius: 0;">
+                <img src="/images/about.jpg" class="card-img-top mx-auto mt-4" alt="About" style="width: 150px; height: 150px;">
+                <div class="card-body">
+                    <h5 class="card-title">About Us</h5>
+                    <p class="card-text">Learn more about our story and commitment to quality dining.</p>
+                    <a href="/About/About" class="btn btn-primary">Learn More</a>
                 </div>
-
-                <!-- Book Table Card -->
-                <div class="col">
-                    <div class="card text-center shadow-sm bg-light">
-                        <img src="/images/book-table.jpg" class="card-img-top rounded-circle mx-auto mt-4" alt="Book Table" style="width: 150px; height: 150px;">
-                        <div class="card-body">
-                            <h5 class="card-title">Book a Table</h5>
-                            <p class="card-text">Reserve your table now for a seamless dining experience.</p>
-                            <a asp-controller="Account" asp-action="SignIn" class="btn btn-primary">Book Now</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Contact Section -->
-                <section id="contact" class="py-4">
-                    <h3 class="text-center mb-3">Contact Us</h3>
-                    <p class="text-center">We’d love to hear from you!</p>
-                    <div class="text-center">
-                        <p><i class="bi bi-geo-alt-fill text-danger"></i> 123 Main Street, Cityville</p>
-                        <p><i class="bi bi-telephone text-warning"></i> Phone: +1 123-456-7890</p>
-                        <p><i class="bi bi-envelope text-primary"></i> Email: reston@ourrestaurant.com</p>
-                        <p><i class="bi bi-clock text-primary"></i> Open: 10:00 AM - 10:00 PM</p>
-                    </div>
-                </section>
             </div>
         </div>
 
-    </div>
+        <!-- Book a Table Card -->
+        <div class="mb-4">
+        <div class="card text-center shadow-sm mx-auto" style="max-width: 1200px; background-color: transparent; backdrop-filter: blur(10px); border-radius: 0;">
+                <img src="/images/book-table.jpg" class="card-img-top mx-auto mt-4" alt="Book Table" style="width: 150px; height: 150px;">
+                <div class="card-body">
+                    <h5 class="card-title">Book a Table</h5>
+                    <p class="card-text">Reserve your table now for a seamless dining experience.</p>
+                    <a href="/Home/BookTable" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+   
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-4 mt-5">
+        <h3 class="text-center mb-3">Contact Us</h3>
+        <p class="text-center">We’d love to hear from you!</p>
+        <div class="text-center">
+            <p><i class="bi bi-geo-alt-fill text-danger"></i> 123 Main Street, Cityville</p>
+            <p><i class="bi bi-telephone text-warning"></i> Phone: +1 123-456-7890</p>
+            <p><i class="bi bi-envelope text-primary"></i> Email: reston@ourrestaurant.com</p>
+            <p><i class="bi bi-clock text-primary"></i> Open: 10:00 AM - 10:00 PM</p>
+        </div>
+    </section>
+</div>

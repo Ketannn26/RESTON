@@ -39,16 +39,6 @@ body {
         box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
     }
 
-
-.carousel-item {
-    height: auto; /* Adjust height dynamically based on content */
-}
-
-.carousel-inner {
-    max-width: 1300px; /* Center align and limit width of the slider */
-    margin: 0 auto;
-}
-
 .bg-light {
     border-radius: 15px; /* Rounded corners for uniformity */
 }

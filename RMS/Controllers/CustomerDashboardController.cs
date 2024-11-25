@@ -11,7 +11,7 @@ namespace RMS.Controllers
             // If no user is logged in, redirect to home page
             if (string.IsNullOrEmpty(userRole))
             {
-                return RedirectToAction("Reston", "Home");  // Redirect to the home page if not logged in
+                return RedirectToAction("Index", "Home");  // Redirect to the home page if not logged in
             }
 
             if (userRole != "Customer")
@@ -19,7 +19,7 @@ namespace RMS.Controllers
                 return RedirectToAction("SignIn", "Account");
             }
 
-            ViewBag.UserFullName = HttpContext.Session.GetString("UserFullName");
+            ViewBag.UserFullName = HttpContext.Session.GetString("UserFullName") ?? "Customer";
             ViewBag.UserRole = userRole;
 
             return View();

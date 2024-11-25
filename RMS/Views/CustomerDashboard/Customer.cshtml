@@ -1,21 +1,21 @@
 ﻿<div class="container mt-4">
-    <h2 class="text-center mb-4">Welcome, @ViewBag.FullName!</h2>
+    <h2 class="text-center mb-4">Welcome, @ViewBag.UserFullName!</h2>
     <p class="text-center">Explore the best of our services below.</p>
 
     <div class="row g-4 mb-5">
         <div class="col-md-6">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="background-color: #f8f9fa; border-radius: 0;">
                 <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Menu">
                 <div class="card-body">
                     <h5 class="card-title">Our Menu</h5>
                     <p class="card-text">Explore a variety of dishes carefully crafted for you.</p>
-                    <a href="/Home/Menu" class="btn btn-primary">View Menu</a>
+                    <a href="/Menu/Menu" class="btn btn-primary">View Menu</a>
                 </div>
             </div>
         </div>
 
         <div class="col-md-6">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm" style="background-color: #f8f9fa; border-radius: 0;">
                 <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Book Table">
                 <div class="card-body">
                     <h5 class="card-title">Reserve a Table</h5>
@@ -26,30 +26,36 @@
         </div>
     </div>
 
-    <!-- About Section -->
-    <section id="about" class="py-4">
-        <h3 class="text-center mb-3">About Our Restaurant</h3>
-        <p class="text-center">
-            At our restaurant, we combine mouth-watering dishes with a cozy atmosphere.
-            Come and enjoy a delightful meal crafted with the freshest ingredients.
-        </p>
 
-        <!-- Image Gallery -->
-        <div class="row text-center">
-            <div class="card shadow-sm col-md-4 mb-3">
-                <img src="https://via.placeholder.com/400x400" alt="Dining Area" class="img-fluid rounded">
-                <p class="mt-2">Cozy Dining Area</p>
-            </div>
-            <div class="card shadow-sm col-md-4 mb-3">
-                <img src="https://via.placeholder.com/400x400" alt="Signature Dish" class="img-fluid rounded">
-                <p class="mt-2">Signature Dish</p>
-            </div>
-            <div class="card shadow-sm col-md-4 mb-3">
-                <img src="https://via.placeholder.com/400x400" alt="Outdoor Seating" class="img-fluid rounded">
-                <p class="mt-2">Beautiful Outdoor Seating</p>
+    <!-- About Section -->
+        <div class="container">
+            <h3 class="text-center mb-4">About Our Restaurant</h3>
+            <div class="d-flex justify-content-center">
+                <!-- Large Card -->
+                <div class="card shadow-sm border-0" style="max-width: 900px; background-color: #f8f9fa; border-radius: 0;">
+                    <div class="row g-0 align-items-center">
+                        <!-- Image Section -->
+                        <div class="col-md-6">
+                            <img src="https://via.placeholder.com/600x600" class="img-fluid h-100" alt="About Reston">
+                        </div>
+                        <!-- Text Section -->
+                        <div class="col-md-6">
+                            <div class="card-body p-5">
+                                <h4 class="card-title mb-4">Welcome to Reston!</h4>
+                                <p class="card-text">
+                                    At Reston, we are dedicated to providing an exceptional dining experience. Our team of talented chefs crafts mouth-watering dishes using the freshest ingredients, all served in a cozy, welcoming atmosphere.
+                                </p>
+                                <p class="card-text">
+                                    Whether you're here for a casual meal, a special occasion, or simply to enjoy good food with great company, Reston is your destination.
+                                </p>
+                                <a href="/About/About" class="btn btn-primary mt-3">Explore More About</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+
 
     <!-- Contact Section -->
     <section id="contact" class="py-4">

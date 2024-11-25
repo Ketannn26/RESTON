@@ -15,23 +15,19 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand d-flex align-items-center"
+
+                <div class="navbar-brand d-flex align-items-center">
                     <i class="bi bi-shop me-2 text-primary"></i>
                     <span class="fw-bold fs-4 text-primary">RESTON</span>
-                </a>
+                </div>
 
                 <div class="d-flex justify-content-center gap-4">
-                     <!-- Home Link -->
+
                     <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "fw-bold text-primary border-bottom border-primary" : "")"
-                    asp-area=""
-                    asp-controller="@((ViewBag.UserRole == null || !ViewBag.UserRole.Any()) ? "Home" : (ViewBag.UserRole == "Admin" ? "AdminDashboard" : "CustomerDashboard"))"
-                    asp-action="@((ViewBag.UserRole == null || !ViewBag.UserRole.Any()) ? "Index" : (ViewBag.UserRole == "Admin" ? "Admin" : "Customer"))">
-                     Home
+                       asp-area="" asp-controller="@(ViewBag.UserRole == null ? "Home" : (ViewBag.UserRole == "Admin" ? "AdminDashboard" : "CustomerDashboard"))"
+                       asp-action="@(ViewBag.UserRole == null ? "Index" : (ViewBag.UserRole == "Admin" ? "Admin" : "Customer"))">
+                       Home
                    </a>
-
-
-
-                <div class="d-flex justify-content-center gap-4">
 
                     <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Menu" ? "fw-bold text-primary border-bottom border-primary" : "")"
                        asp-area="" asp-controller="Menu" asp-action="Menu">Menu</a>

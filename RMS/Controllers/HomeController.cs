@@ -9,6 +9,7 @@ namespace RMS.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.UserRole = User.IsInRole("Admin") ? "Admin" : User.IsInRole("Customer") ? "Customer" : null;
             return View();
         }
     }

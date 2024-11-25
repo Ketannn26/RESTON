@@ -6,6 +6,8 @@ namespace RMS.Controllers
     {
         public IActionResult About()
         {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            ViewBag.UserRole = userRole;
             return View();
         }
     }

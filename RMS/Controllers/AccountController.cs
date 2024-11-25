@@ -59,6 +59,10 @@ namespace RMS.Controllers
         [HttpPost]
         public IActionResult SignIn(string email, string password)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(User);
+            }
 
             var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
             if (user != null)
@@ -73,7 +77,7 @@ namespace RMS.Controllers
                     return RedirectToAction("Customer", "CustomerDashboard");
             }
             ViewBag.ErrorMessage = "Invalid email or password.";
-            return View();
+            return View(User);
         }
 
         // Profile
@@ -84,10 +88,10 @@ namespace RMS.Controllers
             var userFullName = HttpContext.Session.GetString("UserFullName");
             var userRole = HttpContext.Session.GetString("UserRole");
 
-            if (userFullName == null || userRole == null)
+            if (string.IsNullOrEmpty(userFullName) || string.IsNullOrEmpty(userRole))
             {
                 // If no session exists, redirect to SignIn
-                return RedirectToAction("SignIn");
+                return RedirectToAction("SignIn", "Account");
             }
 
             // Retrieve full user details from the database (optional, if needed)
@@ -97,6 +101,8 @@ namespace RMS.Controllers
                 return RedirectToAction("SignIn");
             }
 
+            ViewBag.UserRole = userRole;
+            ViewBag.UserFullName = userFullName;
             return View(user); // Pass the user object to the view
         }
 
@@ -128,7 +134,7 @@ namespace RMS.Controllers
         public IActionResult SignOut()
         {
             HttpContext.Session.Clear(); // Clear all sessions
-            return RedirectToAction("Reston","Home");
+            return RedirectToAction("Index","Home");
         }
     }
 }
