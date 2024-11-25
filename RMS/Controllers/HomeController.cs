@@ -7,7 +7,7 @@ namespace RMS.Controllers
     public class HomeController : Controller
     {
         [HttpGet]
-        public IActionResult Reston()
+        public IActionResult Index()
         {
             return View();
         }

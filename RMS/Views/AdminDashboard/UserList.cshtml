@@ -19,7 +19,6 @@
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,14 +28,6 @@
                         <td>@user.FullName</td>
                         <td>@user.Email</td>
                         <td>@user.Role</td>
-                        <td>
-                            <a asp-action="EditUser" asp-route-id="@user.U_Id" class="btn btn-warning btn-sm">
-                                <i class="bi bi-pencil-square"></i> Edit
-                            </a>
-                            <a asp-action="DeleteUser" asp-route-id="@user.U_Id" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash"></i> Delete
-                            </a>
-                        </td>
                     </tr>
                 }
             </tbody>
