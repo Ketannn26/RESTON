@@ -1,91 +1,72 @@
 ﻿@{
     ViewData["Title"] = "Home - Reston";
 }
-
+ 
+    
 <div class="mt-5">
-    <!-- Welcome Section -->
-    <div class="text-center">
-        <h1 class="display-4 text-primary">Welcome to Reston!</h1>
-        <p class="lead text-muted">Experience the finest dining with our delicious menu and exceptional service.</p>
+    <div class="content-container text-center">
+        <h1 class="display-6 text-primary">Welcome to Reston!</h1>
     </div>
 
-    <!-- Carousel Card -->
-    <div class="mb-4">
-        <!-- Single Card Container -->
-        <div class="card shadow-sm" style="width: 1200px; height: auto; background-color: transparent; backdrop-filter: blur(10px); border-radius: 0; margin: 0 auto;">
-            <div class="card-body p-0">
-                <!-- Flex container for three sections -->
-                <div class="row g-0">
-                    <!-- Breakfast Section -->
-                    <div class="col-md-4">
-                        <div class="card h-100 border-0 rounded-3">
-                            <!-- Added rounded-3 to the card -->
-                            <img src="/images/bf.jpg" class="card-img-top rounded-3" alt="Breakfast" style="object-fit: cover; height: 300px;">
-                            <div class="card-body text-center" style="border-radius: 10px;">
-                                <h5 class="card-title fw-bold text-dark">Breakfast</h5>
-                                <p class="card-text text-dark">Start your day with a delicious and energizing breakfast.</p>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Menu Slider -->
+    <div id="menuSlider" class="carousel slide shadow-sm bg-light mx-auto mb-5" style="width: 1200px; border-radius: 0; padding: 20px;" data-bs-ride="carousel">
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#menuSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#menuSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#menuSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
 
-                    <!-- Lunch Section -->
-                    <div class="col-md-4">
-                        <div class="card h-100 border-0 rounded-3">
-                            <!-- Added rounded-3 to the card -->
-                            <img src="/images/SigDish.jpg" class="card-img-top rounded-3" alt="Lunch" style="object-fit: cover; height: 300px;">
-                            <div class="card-body text-center" style="border-radius: 10px;">
-                                <h5 class="card-title fw-bold text-dark">Lunch</h5>
-                                <p class="card-text text-dark">Enjoy a hearty and flavorful lunch to fuel your afternoon.</p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Carousel Inner -->
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active position-relative">
+                <img src="/images/bf.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;">
+            </div>
 
-                    <!-- Dinner Section -->
-                    <div class="col-md-4">
-                        <div class="card h-100 border-0 rounded-3">
-                            <!-- Added rounded-3 to the card -->
-                            <img src="/images/bg.jpg" class="card-img-top rounded-3" alt="Dinner" style="object-fit: cover; height: 300px;">
-                            <div class="card-body text-center" style="border-radius: 10px;">
-                                <h5 class="card-title fw-bold text-dark">Dinner</h5>
-                                <p class="card-text text-dark">End your day with a delightful dinner from our exquisite menu.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- Slide 2 -->
+            <div class="carousel-item position-relative">
+                <img src="/images/SigDish.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;">
+            </div>
 
+            <!-- Slide 3 -->
+            <div class="carousel-item position-relative">
+                <img src="/images/bg.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;">
             </div>
 
             <!-- Single "View Menu" Button -->
-            <div class="card-footer text-center">
+            <div class="position-absolute w-100 text-center" style="bottom: 20px; z-index: 10;">
                 <a href="/Menu/Menu" class="btn btn-primary btn-lg">View Menu</a>
             </div>
         </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#menuSlider" data-bs-slide="prev" style="color: gray;">
+            <span class="carousel-control-prev-icon" style="background-color: gray;" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#menuSlider" data-bs-slide="next" style="color: gray;">
+            <span class="carousel-control-next-icon" style="background-color: gray;" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 
-        <!-- About Us Card -->
-        <div class="mb-4">
-        <div class="card text-center shadow-sm mx-auto" style="max-width: 1200px; background-color: transparent; backdrop-filter: blur(10px); border-radius: 0;">
-                <img src="/images/about.jpg" class="card-img-top mx-auto mt-4" alt="About" style="width: 150px; height: 150px;">
-                <div class="card-body">
-                    <h5 class="card-title">About Us</h5>
-                    <p class="card-text">Learn more about our story and commitment to quality dining.</p>
-                    <a href="/About/About" class="btn btn-primary">Learn More</a>
-                </div>
-            </div>
-        </div>
 
-        <!-- Book a Table Card -->
-        <div class="mb-4">
-        <div class="card text-center shadow-sm mx-auto" style="max-width: 1200px; background-color: transparent; backdrop-filter: blur(10px); border-radius: 0;">
-                <img src="/images/book-table.jpg" class="card-img-top mx-auto mt-4" alt="Book Table" style="width: 150px; height: 150px;">
-                <div class="card-body">
-                    <h5 class="card-title">Book a Table</h5>
-                    <p class="card-text">Reserve your table now for a seamless dining experience.</p>
-                    <a href="/Home/BookTable" class="btn btn-primary">Book Now</a>
-                </div>
-            </div>
+    <!-- About Us Card -->
+    <div class="card text-center shadow-sm mx-auto bg-light mb-5" style="max-width: 1200px; border-radius: 10px;">
+        <img src="/images/bg.jpg" class="card-img-top mx-auto mt-4" alt="About" style="width: 1100px; height: 300px;">
+        <div class="card-body">
+            <a href="/About/About" class="btn btn-primary">Learn More</a>
         </div>
-   
+    </div>
+
+    <!-- Book a Table Card -->
+    <div class="card text-center shadow-sm mx-auto bg-light mb-5" style="max-width: 1200px; border-radius: 10px;">
+        <img src="/images/book-table.jpg" class="card-img-top mx-auto mt-4" alt="Book Table" style="width: 1100px; height: 300px;">
+        <div class="card-body">
+            <a href="/BookTable/BookTableLanding" class="btn btn-primary">Book Table</a>
+        </div>
+    </div>
 
     <!-- Contact Section -->
     <section id="contact" class="py-4 mt-5">

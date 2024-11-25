@@ -1,4 +1,31 @@
 ﻿@model RMS.Models.User
 
-<h1>Menu</h1>
-<p>Welcome to the Menu page!</p>
+@{
+    ViewData["Title"] = "Contact Us - Reston";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h2 class="display-4 text-primary">Contact Us</h2>
+            <p class="lead text-muted">We’d love to hear from you!</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <!-- Contact Information Section with White Background -->
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm bg-white" style="border-radius: 0;">
+                <div class="card-body">
+                    <h4 class="card-title text-center">Reach Us</h4>
+                    <ul class="list-unstyled text-center">
+                        <li><i class="bi bi-geo-alt-fill text-danger"></i> <strong>Address:</strong> 123 Main Street, Cityville</li>
+                        <li><i class="bi bi-telephone text-warning"></i> <strong>Phone:</strong> +1 123-456-7890</li>
+                        <li><i class="bi bi-envelope text-primary"></i> <strong>Email:</strong> reston@ourrestaurant.com</li>
+                        <li><i class="bi bi-clock text-success"></i> <strong>Open Hours:</strong> 10:00 AM - 10:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

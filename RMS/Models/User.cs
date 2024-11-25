@@ -28,5 +28,7 @@ namespace RMS.Models
         [Required]
         [StringLength(40)]
         public string Role { get; set; } // Customer or Admin
+
+        public virtual ICollection<Booking> Bookings { get; set; }
     }
 }

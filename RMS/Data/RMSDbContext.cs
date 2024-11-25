@@ -9,5 +9,8 @@ namespace RMS.Data
 
         public DbSet<User> Users { get; set; } // Existing
         public DbSet<Menu> Menus { get; set; } // Add this
+        public DbSet<RMS.Models.Booking> Bookings { get; set; }
+
+        
     }
 }
