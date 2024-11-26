@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 namespace RMS.Models
 {
     public class Booking
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BookingId { get; set; }
 
         [Required]
@@ -24,8 +26,6 @@ namespace RMS.Models
         [Required]
         public int NumberOfGuests { get; set; }
 
-        public string SpecialRequest { get; set; }
-
         // Foreign Key for User
         [ForeignKey("User")]
         public int U_Id { get; set; }
@@ -34,3 +34,5 @@ namespace RMS.Models
         public virtual User User { get; set; }
     }
 }
+
+

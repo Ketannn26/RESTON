@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RMS.Migrations
 {
     /// <inheritdoc />
-    public partial class Bookings : Migration
+    public partial class booking : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,6 @@ namespace RMS.Migrations
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NumberOfGuests = table.Column<int>(type: "int", nullable: false),
-                    SpecialRequest = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     U_Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

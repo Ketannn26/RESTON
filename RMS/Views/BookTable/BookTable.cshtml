@@ -4,56 +4,55 @@
     ViewData["Title"] = "Book a Table";
 }
 
-<div class="container d-flex justify-content-center align-items-center mt-5">
-    <div class="card shadow-sm p-4 bg-light" style="width: 100%; max-width: 900px;">
-        <h2 class="text-center text-primary mb-4">Book a Table</h2>
+<div class="container">
+    <h2>Book a Table</h2>
 
-        <!-- Display success message -->
-        @if (TempData["SuccessMessage"] != null)
-        {
-            <div class="alert alert-success text-center">
-                @TempData["SuccessMessage"]
-            </div>
-        }
+    <!-- Display success or error messages -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
 
-        <form asp-action="BookTable" method="post">
-            <div class="mb-3">
-                <label for="UserName" class="form-label">Name</label>
-                <input asp-for="UserName" class="form-control" id="UserName" readonly />
-                <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
 
-            <div class="mb-3">
-                <label for="Email" class="form-label">Email</label>
-                <input asp-for="Email" type="email" class="form-control" id="Email" readonly />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
+    <form method="post" asp-action="BookTable">
+        <div class="mb-3">
+            <label for="UserName" class="form-label">Full Name</label>
+            <input asp-for="UserName" class="form-control" id="UserName" readonly />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
 
-            <div class="mb-3">
-                <label for="Phone" class="form-label">Phone</label>
-                <input asp-for="Phone" class="form-control" id="Phone" readonly />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" id="Email" readonly />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
 
-            <div class="mb-3">
-                <label for="ReservationDate" class="form-label">Reservation Date</label>
-                <input asp-for="ReservationDate" type="datetime-local" class="form-control" id="ReservationDate" />
-                <span asp-validation-for="ReservationDate" class="text-danger"></span>
-            </div>
+        <div class="mb-3">
+            <label for="Phone" class="form-label">Phone Number</label>
+            <input asp-for="Phone" class="form-control" id="Phone" readonly />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
 
-            <div class="mb-3">
-                <label for="NumberOfGuests" class="form-label">Number of Guests</label>
-                <input asp-for="NumberOfGuests" type="number" class="form-control" id="NumberOfGuests" placeholder="Enter number of guests" />
-                <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
-            </div>
+        <div class="mb-3">
+            <label for="ReservationDate" class="form-label">Reservation Date and Time</label>
+            <input asp-for="ReservationDate" type="datetime-local" class="form-control" id="ReservationDate" />
+            <span asp-validation-for="ReservationDate" class="text-danger"></span>
+        </div>
 
-            <div class="mb-3">
-                <label for="SpecialRequest" class="form-label">Special Requests</label>
-                <textarea asp-for="SpecialRequest" class="form-control" id="SpecialRequest" rows="3" placeholder="Add any special requests"></textarea>
-                <span asp-validation-for="SpecialRequest" class="text-danger"></span>
-            </div>
+        <div class="mb-3">
+            <label for="NumberOfGuests" class="form-label">Number of Guests</label>
+            <input asp-for="NumberOfGuests" type="number" class="form-control" id="NumberOfGuests" />
+            <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
+        </div>
 
-            <button type="submit" class="btn btn-primary w-100 mt-3">Book Table</button>
-        </form>
-    </div>
+        <button type="submit" class="btn btn-primary">Book Now</button>
+    </form>
 </div>

@@ -52,19 +52,21 @@ namespace RMS.Controllers
                 // Ensure the role is set to "Customer"
                 if (string.IsNullOrEmpty(user.Role))
                 {
-                    user.Role = "Customer"; // Make sure role is set to "Customer" if not provided
+                    user.Role = "Customer"; // Default to "Customer" if no role provided
                 }
 
                 // Add the user to the database
                 _context.Users.Add(user);
                 _context.SaveChanges();
 
-                // Redirect to SignIn page
+                // Redirect to SignIn page after successful registration
                 return RedirectToAction("SignIn");
             }
 
+            // If ModelState is invalid, return to the view with validation messages
             return View(user);
         }
+
 
 
 
@@ -78,6 +80,7 @@ namespace RMS.Controllers
         [HttpPost]
         public IActionResult SignIn(string email, string password)
         {
+            // Ensure model state is valid
             if (!ModelState.IsValid)
             {
                 return View();
@@ -93,7 +96,9 @@ namespace RMS.Controllers
                     // Set session for admin user
                     HttpContext.Session.SetString("UserRole", adminUser.Role);
                     HttpContext.Session.SetString("UserFullName", adminUser.FullName);
+                    HttpContext.Session.SetString("UserEmail", adminUser.Email); // Ensure UserEmail is set in session
 
+                    // Redirect to admin dashboard
                     return RedirectToAction("Admin", "AdminDashboard");
                 }
                 else
@@ -107,19 +112,23 @@ namespace RMS.Controllers
             var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
             if (user != null)
             {
-                // Set session for user
+                // Set session for regular user (customer)
+                HttpContext.Session.SetString("UserEmail", user.Email);
                 HttpContext.Session.SetString("UserRole", user.Role);
                 HttpContext.Session.SetString("UserFullName", user.FullName);
 
+                // Redirect to customer dashboard if user role is Customer
                 if (user.Role == "Customer")
                 {
                     return RedirectToAction("Customer", "CustomerDashboard");
                 }
             }
 
+            // If no matching user is found, display error message
             ViewBag.ErrorMessage = "Invalid email or password.";
             return View();
         }
+
 
 
         // Profile

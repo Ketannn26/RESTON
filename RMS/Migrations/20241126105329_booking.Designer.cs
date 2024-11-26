@@ -12,8 +12,8 @@ using RMS.Data;
 namespace RMS.Migrations
 {
     [DbContext(typeof(RMSDbContext))]
-    [Migration("20241125180547_Bookings")]
-    partial class Bookings
+    [Migration("20241126105329_booking")]
+    partial class booking
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,10 +46,6 @@ namespace RMS.Migrations
 
                     b.Property<DateTime>("ReservationDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("SpecialRequest")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("U_Id")
                         .HasColumnType("int");

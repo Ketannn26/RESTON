@@ -13,7 +13,6 @@
                         @ViewBag.ErrorMessage
                     </div>
                 }
-
                 <form asp-action="SignIn" method="post">
                     @Html.AntiForgeryToken() <!-- CSRF Protection -->
                     <!-- Email Address -->
