@@ -1,7 +1,5 @@
 ﻿@model RMS.Models.User
 
-
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
@@ -41,32 +39,15 @@
                     <!-- Phone Number -->
                     <div class="form-group mt-3">
                         <label for="PhoneNumber">Phone Number</label>
-                        <input asp-for="PhoneNumber"
-                               class="form-control"
-                               id="PhoneNumber"
-                               placeholder="Enter your phone number"
-                               required
-                               type="tel"
-                               pattern="^\d{10}$"
-                               title="Phone number must be exactly 10 digits." />
+                        <input asp-for="PhoneNumber" class="form-control" id="PhoneNumber" placeholder="Enter your phone number" required type="tel" pattern="^\d{10}$" title="Phone number must be exactly 10 digits." />
                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
 
-
-                    <!-- Role Dropdown -->
-                    <div class="form-group mt-3">
-                        <label for="Role" class="font-weight-bold text-secondary">Role</label>
-                        <select asp-for="Role" class="form-control custom-select" id="Role" required>
-                            <option value="" disabled selected>Select Role</option>
-                            <option value="Customer">Customer</option>
-                            <option value="Admin">Admin</option>
-                        </select>
-                        <span asp-validation-for="Role" class="text-danger"></span>
-                    </div>
-
+                    <!-- Role (Hidden Field) -->
+                    <input asp-for="Role" value="Customer" type="hidden" />
 
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary btn-block mt-4">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block mt-4">Sign Up</button>
                     </div>
 
                     <div class="text-center mt-3">
