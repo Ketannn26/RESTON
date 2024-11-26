@@ -5,7 +5,7 @@
     
 <div class="mt-5">
     <div class="content-container text-center">
-        <h1 class="display-6 text-primary">Welcome to Reston!</h1>
+        <h1 class="mb-4">Welcome to Reston!</h1>
     </div>
 
     <!-- Menu Slider -->
@@ -21,24 +21,26 @@
         <div class="carousel-inner">
             <!-- Slide 1 -->
             <div class="carousel-item active position-relative">
-                <img src="/images/bf.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;">
+                <a href="/Menu/Menu">
+                    <img src="/images/pexels-ella-olsson-572949-1640772.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Menu Image 1">
+                </a>
             </div>
 
             <!-- Slide 2 -->
             <div class="carousel-item position-relative">
-                <img src="/images/SigDish.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;">
+                <a href="/Menu/Menu">
+                    <img src="/images/pexels-ella-olsson-572949-1640777.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Menu Image 2">
+                </a>
             </div>
 
             <!-- Slide 3 -->
             <div class="carousel-item position-relative">
-                <img src="/images/bg.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;">
-            </div>
-
-            <!-- Single "View Menu" Button -->
-            <div class="position-absolute w-100 text-center" style="bottom: 20px; z-index: 10;">
-                <a href="/Menu/Menu" class="btn btn-primary btn-lg">View Menu</a>
+                <a href="/Menu/Menu">
+                    <img src="/images/pexels-ella-olsson-572949-3026808.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Menu Image 3">
+                </a>
             </div>
         </div>
+
 
         <!-- Carousel Controls -->
         <button class="carousel-control-prev" type="button" data-bs-target="#menuSlider" data-bs-slide="prev" style="color: gray;">
@@ -53,18 +55,20 @@
 
 
     <!-- About Us Card -->
-    <div class="card text-center shadow-sm mx-auto bg-light mb-5" style="max-width: 1200px; border-radius: 10px;">
-        <img src="/images/bg.jpg" class="card-img-top mx-auto mt-4" alt="About" style="width: 1100px; height: 300px;">
+    <div class="card text-center shadow-sm mx-auto bg-light mb-5" style="max-width: 1200px; border-radius: 0;"> 
         <div class="card-body">
-            <a href="/About/About" class="btn btn-primary">Learn More</a>
+            <h4>About Us</h4>
+            <p class="card-text">Learn more about our story and commitment to quality dining.</p>
+            <a asp-controller="About" asp-action="About" class="btn btn-primary">Learn More</a>
         </div>
     </div>
 
     <!-- Book a Table Card -->
-    <div class="card text-center shadow-sm mx-auto bg-light mb-5" style="max-width: 1200px; border-radius: 10px;">
-        <img src="/images/book-table.jpg" class="card-img-top mx-auto mt-4" alt="Book Table" style="width: 1100px; height: 300px;">
+    <div class="card text-center shadow-sm mx-auto bg-light mb-5" style="max-width: 1200px; border-radius: 0;">
         <div class="card-body">
-            <a href="/BookTable/BookTableLanding" class="btn btn-primary">Book Table</a>
+            <h4>Book Table</h4>
+            <p class="card-text">Reserve your table now for a seamless dining experience.</p>
+            <a asp-controller="BookTable" asp-action="BookTableLanding" class="btn btn-primary">Learn More</a>
         </div>
     </div>
 

@@ -3,13 +3,19 @@
 }
 
 <div class="container my-5">
+     @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
     <div class="row">
         <div class="col-md-12">
             <div class="card shadow-sm" style="background-color: #f8f9fa; border-radius: 0;">
                 <div class="row no-gutters">
                     <!-- Image Section -->
                     <div class="col-md-4">
-                        <img src="https://via.placeholder.com/400x400" class="card-img" alt="Dining Experience">
+                        <img src="/images/pexels-cristian-rojas-7772239.jpg" class="card-img" alt="Dining Experience">
                     </div>
                     <!-- Text Section -->
                     <div class="col-md-8">
@@ -21,7 +27,7 @@
                             <p class="card-text">
                                 Skip the wait, receive premium service, and make your time with us truly memorable. Whether you're celebrating a special occasion or enjoying a casual meal, reserving your table ensures peace of mind and top-tier attention from our team.
                             </p>
-                            <a asp-action="BookTable" class="btn btn-primary mt-3">Reserve Your Table</a>
+                            <a href="@Url.Action("BookTable", "BookTable")" class="btn btn-primary">Reserve Your Table</a>
                         </div>
                     </div>
                 </div>

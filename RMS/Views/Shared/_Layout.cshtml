@@ -38,8 +38,12 @@
                     <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Contact" ? "fw-bold text-primary border-bottom border-primary" : "")"
                        asp-area="" asp-controller="Contact" asp-action="Contact">Contact</a>
 
-                    <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "BookTable" ? "fw-bold text-primary border-bottom border-primary" : "")"
-                       asp-area="" asp-controller="BookTable" asp-action="BookTableLanding">Book Table</a>
+                    @if (ViewBag.UserRole != "Admin")
+                    {
+                        <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "BookTable" ? "fw-bold text-primary border-bottom border-primary" : "")"
+                           asp-area="" asp-controller="BookTable" asp-action="BookTableLanding">Book Table</a>
+                    }
+
                 </div>
                 <div>
                     @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") == null)

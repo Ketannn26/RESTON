@@ -1,0 +1,40 @@
+﻿@model IEnumerable<RMS.Models.Booking>
+
+@{
+    ViewData["Title"] = "Book Table List";
+}
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card shadow-sm p-4" style="width: 100%; max-width: 900px;">
+        <h2 class="text-center text-primary mb-4">Booking List</h2>
+
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div class="alert alert-success text-center">@ViewBag.Message</div>
+        }
+
+        <table class="table table-striped table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Reservation Date</th>
+                    <th>Number of Guests</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        <td>@booking.UserName</td>
+                        <td>@booking.Email</td>
+                        <td>@booking.Phone</td>
+                        <td>@booking.ReservationDate.ToString("yyyy-MM-dd hh:mm tt")</td>
+                        <td>@booking.NumberOfGuests</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -30,6 +30,12 @@
 
     <!-- Main Content -->
     <div id="mainContent" class="flex-grow-1 p-4" style="display: none; margin-left: 175px; max-width: 800px;">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
         <h2 class="text-center">Welcome, @Model.FullName</h2>
         <p class="text-center text-muted">Here, you can view and update your details.</p>
 

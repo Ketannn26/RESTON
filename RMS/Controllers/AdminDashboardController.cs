@@ -212,5 +212,11 @@ namespace RMS.Controllers
             var users = _context.Users.ToList();
             return View(users);
         }
+
+        public IActionResult ViewTables()
+        {
+            var booking = _context.Bookings.ToList();
+            return View(booking);
+        }
     }
 }
