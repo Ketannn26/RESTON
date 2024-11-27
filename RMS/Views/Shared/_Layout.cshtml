@@ -32,17 +32,17 @@
                     <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Menu" ? "fw-bold text-primary border-bottom border-primary" : "")"
                        asp-area="" asp-controller="Menu" asp-action="Menu">Menu</a>
 
-                    <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "About" ? "fw-bold text-primary border-bottom border-primary" : "")"
-                       asp-area="" asp-controller="About" asp-action="About">About</a>
-
-                    <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Contact" ? "fw-bold text-primary border-bottom border-primary" : "")"
-                       asp-area="" asp-controller="Contact" asp-action="Contact">Contact</a>
-
                     @if (ViewBag.UserRole != "Admin")
                     {
                         <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "BookTable" ? "fw-bold text-primary border-bottom border-primary" : "")"
                            asp-area="" asp-controller="BookTable" asp-action="BookTableLanding">Book Table</a>
                     }
+
+                    <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "Contact" ? "fw-bold text-primary border-bottom border-primary" : "")"
+                       asp-area="" asp-controller="Contact" asp-action="Contact">Contact</a>
+
+                    <a class="nav-link fs-5 @(ViewContext.RouteData.Values["controller"]?.ToString() == "About" ? "fw-bold text-primary border-bottom border-primary" : "")"
+                       asp-area="" asp-controller="About" asp-action="About">About</a>
 
                 </div>
                 <div>
@@ -69,7 +69,7 @@
         </main>
     </div>
 
-    <footer class="footer text-muted footer-light">
+    <footer class="footer footer-light">
         <div class="text-center">
            Made with<i class="bi bi-suit-heart-fill"></i>by Sk
         </div>

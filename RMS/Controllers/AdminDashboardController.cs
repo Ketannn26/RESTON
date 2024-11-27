@@ -43,6 +43,8 @@ namespace RMS.Controllers
             
             var menus = _context.Menus.ToList();
             ViewBag.Message = TempData["Message"]?.ToString();
+            var userRole = HttpContext.Session.GetString("UserRole");
+            ViewBag.UserRole = userRole;
             return View(menus);
         }
 
@@ -50,6 +52,7 @@ namespace RMS.Controllers
         public IActionResult CreateMenuItem()
         {
             var userRole = HttpContext.Session.GetString("UserRole");
+            ViewBag.UserRole = userRole;
             if (userRole != "Admin")
             {
                 return Unauthorized(); // Prevent unauthorized access
@@ -101,6 +104,7 @@ namespace RMS.Controllers
         public IActionResult DeleteMenuItem(int id)
         {
             var userRole = HttpContext.Session.GetString("UserRole");
+            ViewBag.UserRole = userRole;
             if (userRole != "Admin")
             {
                 return Unauthorized(); // Prevent unauthorized access
@@ -143,6 +147,7 @@ namespace RMS.Controllers
         public IActionResult EditMenuItem(int id)
         {
             var userRole = HttpContext.Session.GetString("UserRole");
+            ViewBag.UserRole = userRole;
             if (userRole != "Admin")
             {
                 return Unauthorized(); // Prevent unauthorized access
@@ -209,12 +214,16 @@ namespace RMS.Controllers
         // View all users
         public IActionResult UserList()
         {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            ViewBag.UserRole = userRole;
             var users = _context.Users.ToList();
             return View(users);
         }
 
         public IActionResult ViewTables()
         {
+            var userRole = HttpContext.Session.GetString("UserRole");
+            ViewBag.UserRole = userRole;
             var booking = _context.Bookings.ToList();
             return View(booking);
         }

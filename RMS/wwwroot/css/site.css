@@ -78,3 +78,9 @@ body {
         border-color: #88a7c9; /* Active border color */
         font-weight: 600; /* Bold active link */
     }
+
+.custom-gap {
+    gap: 5rem; /* Adjust as needed */
+}
+
+
