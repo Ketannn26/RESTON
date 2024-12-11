@@ -11,27 +11,39 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
-    position: relative; /* Ensures content stays above the background */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    min-height: 100vh;
-    padding-top: 0; /* Prevent space from pseudo-element */
+    in: 0; /* Removes margin */
+    padding-bottom: 60px; /* Space for the footer height */
+    min-height: 100vh; /* Ensures the body takes up full height of the viewport */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
 }
 
-    /* Pseudo-element for background image */
-    body::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url('../images/bg.jpg') no-repeat center center fixed;
-        background-size: cover;
-        filter: blur(5px); /* Apply blur to the background */
-        z-index: -1; /* Ensure it's below the content */
-        pointer-events: none; /* Prevent the background from blocking any interaction */
-    }
+footer {
+    position: fixed; /* Fixes footer at the bottom */
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Makes footer span full width */
+    height: 60px; /* Adjust as per your footer's height */
+    background-color: #f8f9fa; /* Light background color (change as needed) */
+    text-align: center;
+    line-height: 60px; /* Center-align text vertically */
+    z-index: 10; /* Ensures it stays above other content */
+}
+
+/* Pseudo-element for background image */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(5px); /* Apply blur to the background */
+    z-index: -1; /* Ensure it's below the content */
+    pointer-events: none; /* Prevent the background from blocking any interaction */
+}
 
 .btn:focus,
 .btn:active:focus,
@@ -82,5 +94,3 @@ body {
 .custom-gap {
     gap: 5rem; /* Adjust as needed */
 }
-
-

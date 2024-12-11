@@ -70,7 +70,10 @@ namespace RMS.Controllers
             {
                 return Unauthorized(); // Prevent unauthorized access
             }
-
+            if (menu.Price < 0)
+            {
+                ModelState.AddModelError("Price", "Price must be a positive value.");
+            }
             if (!ModelState.IsValid)
             {
                 if (ImageUrl != null && ImageUrl.Length > 0)

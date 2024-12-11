@@ -49,7 +49,7 @@
 
             <div class="mb-3">
                 <label for="NumberOfGuests" class="form-label">Number of Guests</label>
-                <input asp-for="NumberOfGuests" type="number" class="form-control" id="NumberOfGuests" />
+                <input asp-for="NumberOfGuests" type="number" class="form-control" id="NumberOfGuests" min="0" step="1" />
                 <span asp-validation-for="NumberOfGuests" class="text-danger"></span>
             </div>
 

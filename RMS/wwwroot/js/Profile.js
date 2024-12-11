@@ -27,3 +27,16 @@ document.getElementById("signOutBtn").addEventListener("click", function (event)
             }
         });
 });
+  function validatePrice() {
+        const priceInput = document.getElementById('Price');
+    const priceError = document.getElementById('priceError');
+
+    // Check if the price is valid and positive
+    if (parseFloat(priceInput.value) < 0) {
+        priceError.classList.remove('d-none');
+    priceInput.setCustomValidity('Price must be a positive value.');
+        } else {
+        priceError.classList.add('d-none');
+    priceInput.setCustomValidity(''); // Reset custom validation message
+        }
+    }

@@ -77,19 +77,30 @@ namespace RMS.Controllers
             booking.Phone = user.PhoneNumber;
             booking.U_Id = user.U_Id;
 
-            if (booking.NumberOfGuests <= 0)
+            if (booking.ReservationDate.Date <= DateTime.Today)
             {
-                ModelState.AddModelError("NumberOfGuests", "Please specify a valid number of guests.");
+                ModelState.AddModelError("ReservationDate", "Reservation date must be in the future.");
+            }
+            else 
+            {
+                booking.ReservationDate = booking.ReservationDate.Date.Add(DateTime.Now.TimeOfDay);
+
+                if (booking.NumberOfGuests <= 0)
+                {
+                    ModelState.AddModelError("NumberOfGuests", "Please specify a valid number of guests.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    _context.Bookings.Add(booking);
+                    _context.SaveChanges();
+
+                    TempData["SuccessMessage"] = "Your table has been successfully booked!";
+                    return RedirectToAction("BookTableLanding");
+                }
+
             }
 
-            if (!ModelState.IsValid)
-            {
-                _context.Bookings.Add(booking);
-                _context.SaveChanges();
-
-                TempData["SuccessMessage"] = "Your table has been successfully booked!";
-                return RedirectToAction("BookTableLanding");
-            }
 
             return View(booking);
         }
