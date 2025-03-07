@@ -1,2 +1,1 @@
-        "RESTON"
-Restaurant Management System 
+RESTON - Restaurant Management System 
